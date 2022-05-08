@@ -1,0 +1,1001 @@
+\section{式変形の証明}
+\subsection{$\delta$関数と基本統計量}
+式変形で用いる, $\delta$関数を定義し, その他統計量を導く. 
+まず, 式\eqref{eq:delta_func}を$\delta$関数と定義する. 
+\begin{align}
+  \label{eq:delta_func}
+  \delta (j, l)
+  &= \left\{
+  \begin{array}{ll}
+    1 &(j=l) \\
+    0 &(j\neq l)
+  \end{array}
+  \right.
+\end{align}
+ここで, $\bm{V}=[s_{jl}]$と$\bm{V}^{-1}=[s^{jl}]$と$p$次単位行列$\bm{I}$について
+\begin{align*}
+  \bm{V}^{-1}\bm{V} = \bm{VV}^{-1} = \bm{I}
+\end{align*}
+すなわち
+\begin{align*}
+  \left[
+    \begin{array}{cccccc}
+      s^{11} &s^{12} & \cdots &s^{1l} &\cdots &s^{1p} \\
+      s^{21} &s^{22} & \cdots &s^{2l} &\cdots &s^{2p} \\
+      \vdots &\vdots & \ddots &\vdots &\ddots &\vdots \\
+      s^{j1} &s^{j2} & \cdots &s^{jl} &\cdots &s^{jp} \\
+      \vdots &\vdots & \ddots &\vdots &\ddots &\vdots \\
+      s^{p1} &s^{p2} & \cdots &s^{pl} &\cdots &s^{pp} 
+    \end{array}
+  \right]
+  \left[
+    \begin{array}{cccccc}
+      s_{11} &s_{12} & \cdots &s_{1l} &\cdots &s_{1p} \\
+      s_{21} &s_{22} & \cdots &s_{2l} &\cdots &s_{2p} \\
+      \vdots &\vdots & \ddots &\vdots &\ddots &\vdots \\
+      s_{j1} &s_{j2} & \cdots &s_{jl} &\cdots &s_{jp} \\
+      \vdots &\vdots & \ddots &\vdots &\ddots &\vdots \\
+      s_{p1} &s_{p2} & \cdots &s_{pl} &\cdots &s_{pp} 
+    \end{array}
+  \right]
+  =
+  \left[
+    \begin{array}{cccc}
+      1 &0 &\cdots &0 \\
+      0 &1 &\cdots &\vdots \\
+      \vdots &\vdots &\ddots &\vdots \\
+      0 &0 &\cdots &1
+    \end{array}
+  \right]
+\end{align*}
+行番号と列番号が一致するときにのみ1をとることから, 
+\begin{align}
+  \label{eq:sum_delta}
+  \sum_{m=1}^ps^{jm}s_{ml} = \sum_{m=1}^ps_{ml}s^{jm}=\delta(j, l)
+\end{align}
+となる. また, 定数$b_j, j=1, 2, \cdots, p$について, 
+\begin{align}
+  \label{eq:sum_delta_constant}
+  \sum_{l=1}^pb_l\delta (j, l)=b_j
+\end{align}
+が成り立つ. \\
+
+$y_i$の期待値$\operatorname{E}(y_i)$は
+\begin{align}
+  \notag
+  \operatorname{E}(y_i)
+  &= \operatorname{E}(a_0 + a_1x_{1i}+ \cdots + a_px_{pi}+e_i) 
+  \text{\quad ($\because$ 式\eqref{eq:model} 
+  \;$y_i = a_0 + a_1x_{1i} + \cdots + a_px_{pi}+e_i$より)}\\
+  \notag
+  &= a_0 + a_1x_{1i} + \cdots + a_px_{pi} + \operatorname{E}(e_i) \\
+  \label{eq:e_yi} 
+  &= a_0 + a_1x_{1i} + \cdots + a_px_{pi} 
+  \text{\quad ($\because \; \operatorname{E}(e_i) = 0$)}
+\end{align}
+
+$y_i, y_k$の共分散$\operatorname{Cov}(y_i, y_k)$は, 
+\begin{align}
+  \notag
+  \operatorname{Cov}(y_i, y_k)
+  &= \operatorname{E}\left[\{y_i-\operatorname{E}(y_i)\}\{y_k-\operatorname{E}(y_k)\}\right] \\
+  \notag
+  &=\operatorname{E}\left[\{y_i-(a_0 + a_1x_{1i} + \cdots + a_px_{pi})\}\{y_k-(a_0 + a_1x_{1k} + \cdots + a_px_{pk})\}\right] \\
+  \notag
+  &\text{\quad ($\because$式\eqref{eq:e_yi}\; $\operatorname{E}(y_i)=a_0 + a_1x_{1i} + \cdots + a_px_{pi} $より)} \\
+  \notag
+  &= \operatorname{E}(e_ie_k) \\
+  \notag
+  &= \operatorname{E}\left[\{e_i-\operatorname{E}(e_i)\}\{e_k-\operatorname{E}(e_k)\}\right] \text{\;\;\; ($\because \operatorname{E}(e_i)=0$より)} \\
+  \label{eq:cov_yiyk}
+  &= \operatorname{Cov}(e_i, e_k)
+\end{align}
+$\operatorname{Cov}(e_i, e_k)$について, $e_i, e_k$は互いに独立で無相関であるため, 
+\begin{align*}
+  \left\{
+    \begin{array}{ll}
+      \operatorname{Cov}(e_i, e_k) =0 &(i\neq k) \\
+      \operatorname{Cov}(e_i, e_k) =\operatorname{V}(e_i) &(i= k) 
+    \end{array}
+  \right.
+\end{align*}
+となる. また, 定数$c_i, i=1, 2, \cdots, n$に関して, 
+\begin{align}
+  \label{eq:sum_cov}
+  \sum_{k=1}^nc_k\operatorname{Cov}(e_i, e_k) = c_i\operatorname{V}(e_i) =c_i\sigma^2
+\end{align}
+が成り立つ. 
+
+そして, 共分散$s_{jl}, j, l=1, 2, \cdots, p$について, 
+\begin{align}
+  \label{eq:cov_jl_2}
+  s_{jl} = \frac{1}{n}\sum_{i=1}^n(x_{ji}-\bar{x}_j)(x_{li}-\bar{x}_l) = \frac{1}{n}\sum_{i=1}^nx_{ji}x_{li}-\bar{x}_j\bar{x}_l
+\end{align}
+が成り立つ. 
+
+\subsection{式\eqref{eq:regre_3}の導出}
+\label{sec:6siki}
+式\eqref{eq:regre_3}を導出するにあたって再掲する. 
+\begin{alignat*}{2}
+  &\operatorname{E}(\hat{a}_j) = a_j, &  &j=1, 2, \cdots, p \tag{\ref{eq:e_j}}\\
+  %\label{eq:v_j}
+  &\operatorname{V}(\hat{a}_j) = \frac{s^{jj}\sigma^2}{n},& &j=1, 2, \cdots, p \tag{\ref{eq:v_j}}\\
+  %\label{eq:cov_jl}
+  &\operatorname{Cov}(\hat{a}_j, \hat{a}_l) =\frac{s^{jl}\sigma^2}{n},& &j\neq l,\; j, l=1, 2, \cdots, p \tag{\ref{eq:cov_jl}}\\
+  %\label{eq:e_0}
+  &\operatorname{E}(\hat{a}_0)=a_0 \tag{\ref{eq:e_0}}\\
+  %\label{eq:v_0}
+  &\operatorname{V}(\hat{a}_0) = \left(\frac{1}{n}+\sum_{j=1}^p\sum_{l=1}^p\frac{\bar{x}_j\bar{x}_ls^{jl}}{n}\right)\sigma^2 \tag{\ref{eq:v_0}}\\
+  %\label{eq:cov_0j}
+  &\operatorname{Cov}(\hat{a}_0, \hat{a}_j) = -\sum_{l=1}^p\frac{\bar{x}_ls^{jl}\sigma^2}{n},&\quad & j=1, 2, \cdots, p \tag{\ref{eq:cov_0j}}
+\end{alignat*}
+
+\subsubsection{式\eqref{eq:e_j} $\operatorname{E}(\hat{a}_j) = a_j$の導出}
+
+%期待値E(\hat{a}_j)
+
+\begin{align*}
+  \operatorname{E}(\hat{a}_j) 
+  &= \operatorname{E}\left\{
+      \frac{1}{n}\sum_{i=1}^n\sum_{l=1}^ps^{jl}(x_{li}-\bar{x}_l)y_i
+    \right\} 
+    \text{\quad ($\because$ 式\eqref{eq:j_regressionC}\; $\hat{a}_j= \frac{1}{n}\sum_{l=1}^p\sum_{i=1}^ns^{jl}(x_{li}-\bar{x}_l)y_i$より)}\\
+  &=\frac{1}{n}\sum_{i=1}^n\sum_{l=1}^ps^{jl}(x_{li}-\bar{x}_l)\operatorname{E}(y_i) \\
+  &=\frac{1}{n}\sum_{i=1}^n\sum_{l=1}^ps^{jl}(x_{li}-\bar{x}_l)(a_0 + a_1x_{1i} + \cdots + a_px_{pi}) \\
+  &\text{\quad ($\because$式\eqref{eq:e_yi}\; $\operatorname{E}(y_i)=a_0 + a_1x_{1i} + \cdots + a_px_{pi} $より)} \\
+  &= \frac{1}{n}\sum_{i=1}^n\sum_{l=1}^ps^{jl}(x_{li}-\bar{x}_l)
+  \left(
+    a_0+\sum_{j'=1}^pa_{j'}x_{j'i}
+  \right) \\
+  &= \frac{1}{n}\sum_{l=1}^ps^{jl}
+  \left\{
+    a_0\sum_{i=1}^n(x_{li}-\bar{x}_l)
+    +\sum_{j'=1}^pa_{j'}\sum_{i=1}^n(x_{li}-\bar{x}_l)x_{j'i}
+  \right\} \\
+  &=\frac{1}{n}\sum_{l=1}^ps^{jl}\sum_{j'=1}^pa_{j'}\sum_{i=1}^n(x_{li}x_{j'i}-\bar{x}_lx_{j'i}) \\
+  &= \frac{1}{n}\sum_{l=1}^ps^{jl}\sum_{j'=1}^pa_{j'}
+  \left(
+    \sum_{i=1}^nx_{li}x_{j'i}
+    -\bar{x}_l\sum_{i=1}^nx_{j'i}
+  \right) \\
+  &= \sum_{l=1}^ps^{jl}\sum_{j'=1}^pa_{j'}
+  \left(
+    \frac{1}{n}\sum_{i=1}^nx_{li}x_{j'i}
+    -\bar{x}_l\bar{x}_{j'}
+  \right) \\
+  &= \sum_{l=1}^ps^{jl}\sum_{j'=1}^pa_{j'}s_{lj'} 
+  \text{\quad ($\because$ 式\eqref{eq:cov_jl_2} \;$s_{jl} = \frac{1}{n}\sum_{i=1}^nx_{ji}x_{li}-\bar{x}_j\bar{x}_l$より)} \\
+  &= \sum_{j'=1}^pa_{j'}\sum_{l=1}^ps^{jl}s_{lj'} \\
+  &= \sum_{j'=1}^pa_{j'}\delta(j, j') 
+  \text{\quad ($\because$ 式\eqref{eq:sum_delta} $\sum_{m=1}^ps^{jm}s_{ml} =\delta(j, l)$より)}\\
+  &=a_j 
+  \text{\quad ($\because$ 式\eqref{eq:sum_delta_constant} \;$\sum_{l=1}^pb_l\delta (j, l)=b_j$より)}
+\end{align*}
+
+\subsubsection{式\eqref{eq:cov_jl}\; $\operatorname{Cov}(\hat{a}_j, \hat{a}_l) =\frac{s^{jl}\sigma^2}{n}$の導出}
+
+%共分散Cov(\hat{a}_j, \hat{a}_l)
+
+\begin{align*}
+  \operatorname{Cov}(\hat{a}_j, \hat{a}_l)
+  &= \operatorname{E}\left[
+    \left\{
+      \hat{a}_j-\operatorname{E}(\hat{a}_j)
+    \right\}
+    \left\{
+      \hat{a}_l-\operatorname{E}(\hat{a}_l)
+    \right\}
+  \right] \\
+  \begin{split}
+  &= \operatorname{E}\left[
+    \left\{
+      \frac{1}{n}\sum_{i=1}^n\sum_{j'=1}^ps^{jj'}(x_{j'i}-\bar{x}_{j'})y_i
+      -\operatorname{E}\left(
+        \frac{1}{n}\sum_{i=1}^n\sum_{j'=1}^ps^{jj'}(x_{j'i}-\bar{x}_{j'})y_i
+      \right)
+    \right\} 
+    \right.\\
+  &\quad \left.
+    \left\{
+      \frac{1}{n}\sum_{k=1}^n\sum_{l'=1}^ps^{ll'}(x_{l'k}
+      -\bar{x}_{l'})y_k-\operatorname{E}\left(
+        \frac{1}{n}\sum_{k=1}^n\sum_{l'=1}^ps^{ll'}(x_{l'k}-\bar{x}_{l'})y_k
+      \right)
+    \right\}
+  \right] 
+  \end{split} \\
+  & \text{\quad ($\because$ 式\eqref{eq:j_regressionC}\; $\hat{a}_j= \frac{1}{n}\sum_{l=1}^p\sum_{i=1}^ns^{jl}(x_{li}-\bar{x}_l)y_i$より)} \\
+  &= \operatorname{E}\left[
+    \left\{
+      \frac{1}{n}\sum_{i=1}^n\sum_{j'=1}^ps^{jj'}
+      (x_{j'i}-\bar{x}_{j'})
+      \left(
+        y_i-\operatorname{E}(y_i)
+      \right)
+    \right\}
+    \left\{
+      \frac{1}{n}\sum_{k=1}^n\sum_{l'=1}^ps^{ll'}
+      (x_{l'k}-\bar{x}_{l'})
+      \left(
+        y_k-\operatorname{E}(y_k)
+      \right)
+    \right\}
+  \right] \\
+  &= \operatorname{E}\left[
+    \frac{1}{n^2}\sum_{j'=1}^p\sum_{l'=1}^ps^{jj'}s^{ll'}
+    \sum_{i=1}^n\sum_{k=1}^n
+    (x_{j'i}-\bar{x}_{j'})(x_{l'k}-\bar{x}_{l'})
+    \left\{
+      y_i-\operatorname{E}(y_i)
+    \right\}
+    \left\{
+      y_k-\operatorname{E}(y_k)
+    \right\}
+  \right] \\
+  &= \frac{1}{n^2}\sum_{j'=1}^p\sum_{l'=1}^ps^{jj'}s^{ll'}
+  \sum_{i=1}^n\sum_{k=1}^n
+  (x_{j'i}-\bar{x}_{j'})(x_{l'k}-\bar{x}_{l'})
+  \operatorname{E}\left[
+    \left\{
+      y_i-\operatorname{E}(y_i)
+    \right\}
+    \left\{
+      y_k-\operatorname{E}(y_k)
+    \right\}
+  \right] \\
+  &= \frac{1}{n^2}\sum_{j'=1}^p\sum_{l'=1}^ps^{jj'}s^{ll'}
+  \sum_{i=1}^n\sum_{k=1}^n
+  (x_{j'i}-\bar{x}_{j'})(x_{l'k}-\bar{x}_{l'})\operatorname{Cov}(y_i, y_k) \\
+  &= \frac{1}{n^2}\sum_{j'=1}^p\sum_{l'=1}^ps^{jj'}s^{ll'}
+  \sum_{i=1}^n\sum_{k=1}^n
+  (x_{j'i}-\bar{x}_{j'})(x_{l'k}-\bar{x}_{l'})\operatorname{Cov}(e_i, e_k) \\
+  & \text{\quad ($\because$ 式\eqref{eq:cov_yiyk}\; $\operatorname{Cov}(y_i, y_k)= \operatorname{Cov}(e_i, e_k)$より)} \\
+  &= \frac{1}{n}\sum_{j'=1}^p\sum_{l'=1}^ps^{jj'}s^{ll'}
+  \frac{1}{n}\sum_{i=1}^n
+  (x_{j'i}-\bar{x}_{j'})(x_{l'i}-\bar{x}_{l'})\sigma^2 \\
+  & \text{\quad ($\because$ 式\eqref{eq:sum_cov}
+  \; $\sum_{k=1}^nc_k\operatorname{Cov}(e_i, e_k) = c_i\operatorname{V}(e_i) =c_i\sigma^2$より)} \\
+  &= \frac{1}{n}\sum_{j'=1}^p\sum_{l'=1}^p
+  s^{jj'}s^{ll'}s_{j'l'}\sigma^2 \\
+  &= \frac{\sigma^2}{n}\sum_{l'=1}^ps^{ll'}
+  \sum_{j'=1}^ps^{jj'}s_{j'l'} \\
+  &= \frac{\sigma^2}{n}\sum_{l'=1}^ps^{ll'}\delta(j, l') \text{\;\;\; ($\because$ 式\eqref{eq:sum_delta}$\sum_{m=1}^ps^{jm}s_{ml} = \sum_{m=1}^ps_{ml}s^{jm}=\delta(j, l)$より)} \\
+  &= \frac{s^{lj}\sigma^2}{n} = \frac{s^{jl}\sigma^2}{n}
+  \text{\quad ($\because$ 式\eqref{eq:sum_delta_constant} \;$\sum_{l=1}^pb_l\delta (j, l)=b_j$より)}
+\end{align*}
+\qed
+
+\subsubsection{式\eqref{eq:v_j}\; $\operatorname{V}(\hat{a}_j) = \frac{s^{jj}\sigma^2}{n}$の導出}
+
+%分散V(\hat{a}_j)
+
+式\eqref{eq:cov_jl}において, $j, l$が$j=l$のときであるから, 
+\begin{align*}
+  \operatorname{V}(\hat{a}_j) = \operatorname{Cov}(\hat{a}_j, \hat{a}_j) = \frac{s^{jj}\sigma^2}{n}
+\end{align*}
+\qed
+
+\subsubsection{式\eqref{eq:e_0}\; $\operatorname{E}(\hat{a}_0)=a_0$の導出}
+
+%期待値E(\hat{a}_0)
+
+\begin{align*}
+  \operatorname{E}(\hat{a}_0)
+  &= \operatorname{E}(\bar{y}-\hat{a}_1\bar{x}_1-\cdots -\hat{a}_p\bar{x}_p) \\
+  &= \operatorname{E}(\bar{y})
+  - \operatorname{E}\left(
+    \sum_{j=1}^p\hat{a}_j\bar{x}_j
+  \right) \\
+  &= \operatorname{E}\left(
+    \frac{1}{n}\sum_{i=1}^ny_i
+  \right)
+  -\sum_{j=1}^p\operatorname{E}(\hat{a}_j)\bar{x}_j \\
+  &= \frac{1}{n}\sum_{i=1}^n\operatorname{E}(y_i)
+  -\sum_{j=1}^pa_j\bar{x}_j 
+  \text{\quad ($\because$ 式\eqref{eq:e_j}より\; $\operatorname{E}(\hat{a}_j)=a_j$)} \\
+  &= \frac{1}{n}\sum_{i=1}^n(a_0 + a_1x_{1i} 
+  + \cdots + a_px_{pi})-\sum_{j=1}^pa_j\bar{x}_j \\
+  &\text{\quad ($\because$ 式\eqref{eq:e_yi} \;$\operatorname{E}(y_i)=a_0 + a_1x_{1i} + \cdots + a_px_{pi}$より)}\\
+  &= \frac{1}{n}\sum_{i=1}^n\left(
+    a_0 + \sum_{j=1}^pa_jx_{ji}
+  \right)  
+  -\sum_{j=1}^pa_j\bar{x}_j\\
+  &=\frac{1}{n}\sum_{i=1}^na_0
+  +\sum_{j=1}^pa_j\frac{1}{n}\sum_{i=1}^nx_{ji}-\sum_{j=1}^pa_j\bar{x}_j \\
+  &= a_0 + \sum_{j=1}^pa_j\bar{x}_j - \sum_{j=1}^pa_j\bar{x}_j \\
+  &= a_0 
+\end{align*}
+\qed
+
+\subsubsection{式\eqref{eq:v_0}\; $\operatorname{V}(\hat{a}_0) = \left(\frac{1}{n}+\sum_{j=1}^p\sum_{l=1}^p\frac{\bar{x}_j\bar{x}_ls^{jl}}{n}\right)\sigma^2$の導出}
+
+%分散V(\hat{a}_0)
+
+\begin{align}
+  \notag %1
+  \operatorname{V}(\hat{a}_0)
+  &=\operatorname{E}\left[
+    (\hat{a}_0-\operatorname{E}(\hat{a}_0))^2
+  \right] \\
+  \notag %2
+  &= \operatorname{E}\left[
+    \left\{
+      \bar{y}-(\hat{a}_1\bar{x}_1+ \cdots + \hat{a}_p\bar{x}_p)-\operatorname{E}\left(\bar{y}-(\hat{a}_1\bar{x}_1+\cdots + \hat{a}_p\bar{x}_p)\right)
+    \right\}^2
+  \right] \\
+  \notag
+  &\text{\quad ($\because$ 式\eqref{eq:sec5_y_bar}
+  \; $\hat{a}_0 = \bar{y}-(\hat{a}_1\bar{x}_1+\cdots+\hat{a}_p\bar{x}_p)$より)} \\
+  \notag %3
+  &= \operatorname{E}\left[
+    \left\{
+      \bar{y}-(\hat{a}_1\bar{x}_1+ \cdots + \hat{a}_p\bar{x}_p)-
+      \left(\operatorname{E}(\bar{y})-\operatorname{E}(\hat{a}_1\bar{x}_1+\cdots + \hat{a}_p\bar{x}_p)\right)
+    \right\}^2
+  \right]\\
+  \notag %4
+  &= \operatorname{E}\left[
+    \left\{
+      (\bar{y}-\operatorname{E}(\bar{y}))-\left(\sum_{j=1}^p\hat{a}_j\bar{x}_j-\sum_{j=1}^p\operatorname{E}(\hat{a}_j\bar{x}_j)\right)
+    \right\}^2
+  \right]\\
+  \notag %5
+  \begin{split}
+    &= \operatorname{E}[\{\bar{y}-\operatorname{E}(\bar{y})\}^2]
+    +\operatorname{E}\left[
+    \left\{
+      \sum_{j=1}^p\hat{a}_j\bar{x}_j-\sum_{j=1}^p\operatorname{E}(\hat{a}_j\bar{x}_j)
+    \right\}^2
+  \right] \\
+  & \quad -2\operatorname{E}\left[
+    \{\bar{y}-\operatorname{E}(\bar{y})\}
+    \left\{
+      \sum_{j=1}^p\hat{a}_j\bar{x}_j-\sum_{j=1}^p\operatorname{E}(\hat{a}_j\bar{x}_j)
+    \right\}
+  \right]
+  \end{split}\\
+  \notag %6
+  &= \operatorname{V}(\bar{y}) 
+  + \operatorname{E}\left[
+    \left\{
+      \sum_{j=1}^p\bar{x}_j(\hat{a}_j-\operatorname{E}(\hat{a}_j))
+    \right\}^2
+  \right] 
+  -2\operatorname{E}\left[
+    \{\bar{y}-\operatorname{E}(\bar{y})\}\sum_{j=1}^p\bar{x}_j\{\hat{a}_j-\operatorname{E}(\hat{a}_j)\}
+  \right] \\
+  \notag %7
+  &= \operatorname{V}(\bar{y})
+  + \operatorname{E}\left[
+    \left\{
+      \sum_{j=1}^p\bar{x}_j(\hat{a}_j-\operatorname{E}(\hat{a}_j))
+    \right\}
+    \left\{
+      \sum_{l=1}^p\bar{x}_l(\hat{a}_l-\operatorname{E}(\hat{a}_l))
+    \right\}
+  \right] 
+  - 2\sum_{j=1}^p\bar{x}_j\operatorname{E}\left[
+    \{\bar{y}-\operatorname{E}(\bar{y})\}\{\hat{a}_j-\operatorname{E}(\hat{a}_j)\}
+  \right]\\
+  \label{eq:v_y_transform} %8
+  &= \operatorname{V}(\bar{y}) 
+  +\sum_{j=1}^p\sum_{l=1}^p\bar{x}_j\bar{x}_l\operatorname{Cov}(\hat{a}_j, \hat{a}_l)
+  - 2\sum_{j=1}^p\bar{x}_j\operatorname{Cov}(\bar{y}, \hat{a}_j)
+\end{align}
+ここで式\eqref{eq:v_y_transform}の第1項について, 
+\begin{align}
+  \notag %1
+  \operatorname{V}(\bar{y})
+  &= \operatorname{V}\left(
+    \frac{1}{n}\sum_{i=1}^ny_i
+  \right)\\
+  \notag %2
+  &=\operatorname{V}\left(
+    \frac{1}{n}\sum_{i=1}^n(a_0+a_1x_{1i}+\cdots +a_px_{pi}+e_i
+  )\right) \\
+  \notag %3
+  &= \operatorname{V}\left(\frac{1}{n}\sum_{i=1}^ne_i\right) \\
+  \notag %4
+  &= \frac{1}{n^2}\sum_{i=1}^n\operatorname{V}(e_i) \\
+  \notag %5
+  &= \frac{1}{n^2}\sum_{i=1}^n\sigma^2 \\
+  \label{eq:v_y_bar} %6
+  &= \frac{1}{n^2}n\sigma^2 = \frac{\sigma^2}{n}
+\end{align}
+次に式\eqref{eq:v_y_transform}の第3項について, 
+%共分散Cov(\bar{y}, \hat{a}_j)
+\begin{align}
+  \notag %1
+  \operatorname{Cov}(\bar{y}, \hat{a}_j)
+  &= \operatorname{E}\left[
+    \left\{
+      \bar{y}-\operatorname{E}(\bar{y})
+    \right\}
+    \left\{
+      \hat{a}_j-\operatorname{E}(\hat{a}_j)
+    \right\}
+  \right]\\
+  \notag %2
+  \begin{split}
+    &=\operatorname{E}\left[
+      \left\{
+        \frac{1}{n}\sum_{i=1}^ny_i - \operatorname{E}\left(
+          \frac{1}{n}\sum_{i=1}^ny_i
+        \right)
+      \right\}
+    \right. \\
+    &\quad \left.
+      \left\{
+        \frac{1}{n}\sum_{i=1}^n\sum_{l=1}^ps^{jl}(x_{li}-\bar{x}_l)y_i
+        -\operatorname{E}\left(
+          \frac{1}{n}\sum_{i=1}^n\sum_{l=1}^ps^{jl}(x_{li}-\bar{x}_l)y_i
+        \right)
+      \right\}
+    \right]
+  \end{split}\\
+  \notag
+  &\text{\quad ($\because$ 式\eqref{eq:j_regressionC}
+  \; $\hat{a}_{j}=\frac{1}{n}\sum_{l=1}^p\sum_{i=1}^ns^{jl}(x_{li}-\bar{x}_l)y_i$より)} \\
+  \notag %3
+  \begin{split}
+    &= \operatorname{E}\left[
+      \left\{
+        \frac{1}{n}\sum_{i=1}^ny_i 
+        - \frac{1}{n}\sum_{i=1}^n\operatorname{E}(y_i)
+      \right\}
+    \right. \\
+    &\quad \left.
+      \left\{
+        \frac{1}{n}\sum_{i=1}^n\sum_{l=1}^ps^{jl}(x_{li}-\bar{x}_l)y_i
+        - \frac{1}{n}\sum_{i=1}^n\sum_{l=1}^ps^{jl}(x_{li}-\bar{x}_l)
+        \operatorname{E}(y_i)
+      \right\}
+    \right] 
+  \end{split}\\
+  \notag %4
+  &= \operatorname{E}\left[
+    \left\{
+      \frac{1}{n}\sum_{i=1}^n
+      \left(
+        y_i - \operatorname{E}(y_i)
+      \right)
+    \right\}
+    \left\{
+      \frac{1}{n}\sum_{i=1}^n\sum_{l=1}^ps^{jl}(x_{li}-\bar{x}_{l})
+      \left(
+        y_i - \operatorname{E}(y_i)
+      \right)
+    \right\}
+  \right] \\
+  \notag %5
+  &= \frac{1}{n}\sum_{l=1}^ps^{jl}
+  \frac{1}{n}\sum_{i=1}^n(x_{li}-\bar{x}_{l})\operatorname{E}\left[
+    \left\{
+      y_i-\operatorname{E}(y_i)
+    \right\}^2
+  \right]\\
+  \label{eq:cov_y_bar_a_hat}
+  &=0
+\end{align}
+式\eqref{eq:v_y_bar}と式\eqref{eq:cov_y_bar_a_hat}を式\eqref{eq:v_y_transform}に代入すると, 
+\begin{align*}
+  \operatorname{V}(\hat{a}_0)
+  &= \operatorname{V}(\bar{y}) 
+  + \sum_{j=1}^p\sum_{l=1}^p\bar{x}_j\bar{x}_l\operatorname{Cov}(\hat{a}_j, \hat{a}_l)
+  -2\sum_{j=1}^p\bar{x}\operatorname{Cov}(\bar{y}, \hat{a}_j) \\
+  &= \frac{\sigma^2}{n} + \sum_{j=1}^p\sum_{l=1}^p\bar{x}_j\bar{x}_l\left(
+    \frac{s^{jl}\sigma^2}{n}
+  \right) \text{\;\;\; ($\because$ 式\eqref{eq:cov_jl}\; $\operatorname{Cov}(\hat{a}_j, \hat{a}_l) =\frac{s^{jl}\sigma^2}{n}$より)}\\
+  &= \left(\frac{1}{n}+\sum_{j=1}^p\sum_{l=1}^p\frac{\bar{x}_j\bar{x}_ls^{jl}}{n}\right)\sigma^2
+\end{align*}
+\qed
+
+\subsubsection{式\eqref{eq:cov_0j}\; $\operatorname{Cov}(\hat{a}_0, \hat{a}_j) = -\sum_{l=1}^p\frac{\bar{x}_ls^{jl}\sigma^2}{n}$の導出}
+
+%共分散Cov(\hat{a}_0, \hat{a}_j)
+
+\begin{align*}
+  \operatorname{Cov}(\hat{a}_0, \hat{a}_j)
+  &= \operatorname{E}\left[
+    \left\{
+      \hat{a}_0-\operatorname{E}(\hat{a_0})
+    \right\}
+    \left\{
+      \hat{a}_j-\operatorname{E}(\hat{a_j})
+    \right\}
+  \right] \\
+  &= \operatorname{E}\left[
+    \left\{
+      (\bar{y}-\hat{a}_1\bar{x}_1-\cdots -\hat{a}_p\bar{x}_p)-\operatorname{E}(\bar{y})+\operatorname{E}(\hat{a}_1\bar{x}_1)+\cdots +\operatorname{E}(\hat{a}_p\bar{x}_p)
+    \right\}
+    \left\{
+      \hat{a}_j-\operatorname{E}(\hat{a}_j) 
+    \right\}
+  \right] \\
+  &\text{\quad ($\because$ 式\eqref{eq:sec5_y_bar} \;$\hat{a}_0=\bar{y}-(\hat{a}_1\bar{x}_1+\cdots+\hat{a}_p\bar{x}_p)$より)}\\
+  \begin{split}
+    &= \operatorname{E}\left[
+    \left\{
+      \bar{y}-\operatorname{E}(\bar{y})
+    \right\}
+    \left\{
+      \hat{a}_j-\operatorname{E}(\hat{a}_j)
+    \right\}
+    \right]
+    -\operatorname{E}\left[
+      \bar{x}_1\{
+        \hat{a}_1-\operatorname{E}(\hat{a}_1)
+      \}
+      \{
+        \hat{a}_j-\operatorname{E}(\hat{a}_j)
+      \}
+    \right] \\
+    &\quad - \cdots -\operatorname{E}\left[
+      \bar{x}_p\{\hat{a}_p-\operatorname{E}(\hat{a}_p)\}\{\hat{a}_j-\operatorname{E}(\hat{a}_j)\}
+    \right]
+  \end{split} \\
+  &=\operatorname{Cov}(\bar{y}, \hat{a}_j)
+  -\bar{x}_1\operatorname{Cov}(\hat{a}_1, \hat{a}_j)- \cdots 
+  -\bar{x}_p\operatorname{Cov}(\hat{a}_p, \hat{a}_j) \\
+  &= \operatorname{Cov}(\bar{y}, \hat{a}_j) 
+  -\sum_{l=1}^p\bar{x}_l\operatorname{Cov}(\hat{a}_j, \hat{a}_l)\\
+  &= -\sum_{l=1}^p\frac{\bar{x}_ls^{jl}\sigma^2}{n} \\
+  &\text{\; ($\because$ 式\eqref{eq:cov_y_bar_a_hat}\; 
+  $\operatorname{Cov}(\bar{y}, \hat{a}_j)=0$と
+  式\eqref{eq:cov_jl}$ \; 
+  \operatorname{Cov}(\hat{a}_j, \hat{a}_l) =\frac{s^{jl}\sigma^2}{n}$より)}
+\end{align*}
+\qed
+
+\subsection{式\eqref{eq:f_dist}\; $\operatorname{F}(\hat{a}_0, \hat{a}_1, \cdots, \hat{a}_p)= n(s_{yy}-\sum_{l=1}^ps_{yl}\hat{a}_l)$の導出}
+\label{sec:mean_squared_error_sum}
+
+%残差平方和F
+
+\begin{align}
+  \notag
+  \operatorname{F}(\hat{a}_0, \hat{a}_1, \cdots, \hat{a}_p)
+  &= \sum_{i=1}^p\left\{y_i-(\hat{a}_0+\hat{a}_1x_{1i}+\cdots+\hat{a}_px_{pi})\right\}^2 \\
+  \notag
+  &=\sum_{i=1}^n\left\{
+    (y_i-\bar{y})-\hat{a}_1(x_{1i}-\bar{x}_1)-\cdots -\hat{a}_p(x_{pi}-\bar{x}_p)
+  \right\}^2 \\
+  \notag
+  &\text{\quad ($\because$ 式\eqref{eq:sec5_y_bar} \;
+  $\hat{a}_0=\bar{y}-(\hat{a}_1\bar{x}_1+\cdots+\hat{a}_p\bar{x}_p)$より)}\\
+  \begin{split}
+    \label{eq:f_dist_transform}
+    &= \sum_{i=1}^n(y_i-\bar{y})^2
+    -2\sum_{i=1}^n(y_i-\bar{y})\sum_{j=1}^p\hat{a}_j(x_{ji}-\bar{x}_j) \\
+    & \quad + \sum_{i=1}^n\sum_{j=1}^p\sum_{l=1}^p\hat{a}_j(x_{ji}-\bar{x}_j)\hat{a}_l(x_{li}-\bar{x}_l)
+  \end{split}  
+\end{align}
+ここで, 式\eqref{eq:f_dist_transform}の第1項は, 
+\begin{align}
+  \label{eq:sum_s_yy}
+  \sum_{i=1}^n(y_i-\bar{y})^2 = ns_{yy}
+\end{align}
+また, 式\eqref{eq:f_dist_transform}の第2項は, 
+\begin{align}
+  \notag
+  \sum_{i=1}^n(y_i-\bar{y})\sum_{j=1}^p\hat{a}_j(x_{ji}-\bar{x}_j)
+  &=\sum_{j=1}^p\hat{a}_j\sum_{i=1}^n(y_i-\bar{y})(x_{ji}-\bar{x}_j)\\
+  \label{eq:s_yj_hat_a}
+  &= \sum_{j=1}^p\hat{a}_jns_{yj}
+\end{align}
+そして, 式\eqref{eq:f_dist_transform}の第3項は, 
+\begin{align}
+  \notag %1
+  \sum_{i=1}^n\sum_{j=1}^p\sum_{l=1}^p\hat{a}_j(x_{ji}-\bar{x}_j)\hat{a}_l(x_{li}-\bar{x}_l)
+  &= \sum_{j=1}^p\sum_{l=1}^p\hat{a}_j\hat{a}_l\sum_{i=1}^n(x_{ji}-\bar{x}_j)(x_{li}-\bar{x}_l) \\
+  \notag %2
+  &= \sum_{j=1}^p\sum_{l=1}^p\hat{a}_j\hat{a}_lns_{jl} \\
+  \notag %3
+  &=\sum_{j=1}^p\sum_{l=1}^p\hat{a}_j
+  \left\{
+    \frac{1}{n}\sum_{i=1}^n\sum_{l'=1}^ps^{ll'}(x_{l'i}-\bar{x}_{l'})y_i
+  \right\}ns_{jl} \\
+  \notag %4
+  & \text{\quad ($\because$ 式\eqref{eq:j_regressionC}
+  \; $\hat{a}_{j} =\frac{1}{n}\sum_{l=1}^p\sum_{i=1}^ns^{jl}(x_{li}-\bar{x}_l)y_i$より)} \\
+  \notag %5
+  &= \sum_{j=1}^p\hat{a}_j\sum_{i=1}^ny_i\sum_{l'=1}^p(x_{l'i}-\bar{x}_{l'})\sum_{l=1}^ps_{jl}s^{ll'} \\
+  \notag %6
+  &=\sum_{j=1}^p\hat{a}_j\sum_{i=1}^ny_i\sum_{l'=1}^p(x_{l'i}-\bar{x}_{l'})\delta(j, l') \\
+  \notag %7
+  & \text{\quad ($\because$ 式\eqref{eq:sum_delta}
+  \; $\sum_{m=1}^ps_{ml}s^{jm}=\delta(j, l)$より)}\\
+  \notag %8
+  &=\sum_{j=1}^p\hat{a}_j\sum_{i=1}^n(x_{ji}-\bar{x}_j)y_i \\
+  \notag %9
+  &\text{\quad ($\because$ 式\eqref{eq:sum_delta_constant}
+  \; $\sum_{l=1}^pb_l\delta (j, l)=b_j$より)} \\
+  \notag
+  &= \sum_{j=1}^p\hat{a}_j\sum_{i=1}^n(x_{ji}-\bar{x}_j)
+  \{
+    (y_i-\bar{y})+\bar{y}
+  \} \\
+  \notag %10
+  &=\sum_{j=1}^p\hat{a}_j\left\{
+    \sum_{i=1}^n(x_{ji}-\bar{x}_j)(y_i-\bar{y})
+    + \bar{y}\sum_{i=1}^n(x_{ji}-\bar{x}_j)
+  \right\}\\
+  \label{eq:hat_a_n_s_yj} %11
+  &=\sum_{j=1}^p\hat{a}_jns_{yj}
+\end{align}
+式\eqref{eq:f_dist_transform}に式\eqref{eq:sum_s_yy}, 式\eqref{eq:s_yj_hat_a}, 式\eqref{eq:hat_a_n_s_yj}を代入すると, 
+\begin{align*}
+  \operatorname{F}(\hat{a}_0, \hat{a}_1, \cdots, \hat{a}_p) 
+  &= \sum_{i=1}^n(y_i-\bar{y})^2
+  -2\sum_{i=1}^n(y_i-\bar{y})\sum_{j=1}^p\hat{a}_j(x_{ji}-\bar{x}_j) \\
+  & \quad + \sum_{i=1}^n\sum_{j=1}^p\sum_{l=1}^p\hat{a}_j(x_{ji}-\bar{x}_j)\hat{a}_l(x_{li}-\bar{x}_l) \\
+  &= ns_{yy} -2\sum_{j=1}^p\hat{a}_jns_{yj}+\sum_{j=1}^p\hat{a}_jns_{yj} \\
+  &= n\left(
+    s_{yy}-\sum_{j=1}^p\hat{a}_js_{yj}
+  \right)
+\end{align*}
+\qed
+
+\subsection{$\operatorname{V}_e$が誤差分散$\sigma^2$の不偏推定値であることの証明}
+\label{sec:ve_unbiased}
+式\eqref{eq:unbiasedV}\; $\operatorname{V}_e = \frac{\operatorname{F}(\hat{a}_0, \hat{a}_1, \cdots, \hat{a}_p)}{n-p-1}$が誤差分散$\sigma^2$の不偏推定値であることを示すため, $\operatorname{F}(\hat{a}_0, \hat{a}_1, \cdots, \hat{a}_p)$の期待値を求める. 
+
+\begin{align}
+  \notag %1
+  \operatorname{E}\left[\operatorname{F}(\hat{a}_0, \hat{a}_1, \cdots, \hat{a}_p)
+  \right]
+  &= \operatorname{E}\left[
+    \sum_{i=1}^n
+    \left\{
+      y_i-(\hat{a}_0+\hat{a}_1x_{1i}+\cdots +\hat{a}_px_{pi})
+    \right\}^2
+  \right] \\
+  \notag %2
+  &= \operatorname{E}\left[
+    \sum_{i=1}^n
+    \left\{
+      (a_0-\hat{a}_0)+(a_1-\hat{a}_1)x_{1i}+\cdots +(a_p-\hat{a}_p)x_{pi}+e_i
+    \right\}^2
+  \right] \\
+  \notag 
+  & \text{\;\;\; ($\because$ 式\eqref{eq:model}
+  \; $y_i = a_0 + a_1x_{1i} + \cdots + a_px_{pi}+e_i$より)} \\
+  \notag %3
+  \begin{split}
+    &=\operatorname{E}\left[
+      \sum_{i=1}^n\left\{
+        (a_0-\hat{a}_0)+(a_1-\hat{a}_1)x_{1i}+\cdots +(a_p-\hat{a}_p)x_{pi}
+      \right\}^2
+    \right] \\
+    &\quad +2\operatorname{E}\left[
+      \sum_{i=1}^ne_i
+      \left\{
+        (a_0-\hat{a}_0)+(a_1-\hat{a}_1)x_{1i}+\cdots +(a_p-\hat{a}_p)x_{pi}
+      \right\}
+    \right]
+    +\operatorname{E}\left(
+      \sum_{i=1}^ne_i^2
+    \right) 
+  \end{split} \\
+  \notag %3
+  \begin{split}
+    &=\operatorname{E}\left[
+      \sum_{i=1}^n\left\{
+        (a_0-\hat{a}_0)^2+2(a_0-\hat{a}_0)
+        \sum_{j=1}^p(a_j-\hat{a}_j)x_{ji}
+        +\sum_{j=1}^p(a_j-\hat{a}_j)x_{ji} \sum_{l=1}^p(a_l-\hat{a}_l)x_{li}
+      \right\}
+    \right] \\
+    &\quad +2\sum_{i=1}^n\operatorname{E}\left[
+      e_i(a_0-\hat{a}_0)+e_i\sum_{j=1}^p(a_j-\hat{a}_j)x_{ji}
+    \right]
+    +\operatorname{E}\left(
+      \sum_{i=1}^ne_i^2
+    \right) 
+  \end{split}\\
+  \notag %4
+  \begin{split}
+    &= \sum_{i=1}^n\operatorname{E}\left[
+      \left\{
+        \hat{a}_0-\operatorname{E}(\hat{a}_0)
+      \right\}^2
+    \right]
+    +2\sum_{i=1}^n\sum_{j=1}^p\operatorname{E}\left[
+      \hat{a}_0-\operatorname{E}(\hat{a}_0)
+    \right]
+    \operatorname{E}\left[
+      \left\{
+        \hat{a}_j-\operatorname{E}(\hat{a}_j)
+      \right\}x_{ji}
+    \right]\\
+    &\quad +\sum_{i=1}^n\sum_{j=1}^p\sum_{l=1}^p\operatorname{E}\left[
+      \left\{
+        \hat{a}_j-\operatorname{E}(\hat{a}_j)
+      \right\}
+      \left\{
+        \hat{a}_l-\operatorname{E}(\hat{a}_l)
+      \right\}x_{ji}x_{li}
+    \right] \\
+    &\quad -2\sum_{i=1}^n\operatorname{E}\left[
+      \left\{
+        e_i-\operatorname{E}(e_i)
+      \right\}
+      \left\{
+        \hat{a}_0-\operatorname{E}(\hat{a}_0)
+      \right\}
+    \right] \\
+    &\quad -2\sum_{i=1}^n\sum_{j=1}^p\operatorname{E}\left[
+      \left\{
+        e_i-\operatorname{E}(e_i)
+      \right\}
+      \left\{
+        \hat{a}_j-\operatorname{E}(\hat{a}_j)
+      \right\}x_{ji}
+    \right]
+    +\operatorname{E}\left(
+      \sum_{i=1}^ne_i^2
+    \right) \\
+    \notag
+    &\text{\quad ($\because$ 式\eqref{eq:e_j}
+    \; $\operatorname{E}(\hat{a}_j) = a_j$と
+    式\eqref{eq:e_0}
+    \; $\operatorname{E}(\hat{a}_0) = a_0$より)}
+  \end{split} \\
+  \label{eq:e_F_transform} %5
+  \begin{split}
+    &=\sum_{i=1}^n\operatorname{V}(\hat{a}_0)
+    +2\sum_{i=1}^n\sum_{j=1}^p\operatorname{Cov}(\hat{a}_0, \hat{a}_j)x_{ji} 
+    +\sum_{i=1}^n\sum_{j=1}^p\sum_{l=1}^p\operatorname{Cov}(\hat{a}_j, \hat{a}_l)x_{ji}x_{li} \\
+    &\quad -2\sum_{i=1}^n\operatorname{Cov}(e_i, \hat{a}_0)
+    -2\sum_{i=1}^n\sum_{j=1}^p\operatorname{Cov}(e_i, \hat{a}_j)x_{ji}
+    +\operatorname{E}\left(
+      \sum_{i=1}^ne_i^2
+    \right)
+  \end{split} 
+\end{align}
+ここで, 式\eqref{eq:e_F_transform}の第4項に関して, 
+\begin{align}
+  \notag %1
+  \operatorname{Cov}(e_i, \hat{a}_0)
+  &= \operatorname{E}\left[
+    \left\{
+      e_i-\operatorname{E}(e_i)
+    \right\}
+    \left\{
+      \hat{a}_0-\operatorname{E}(\hat{a}_0)
+    \right\}
+  \right] \\
+  \notag %2
+  \begin{split}
+    &= \operatorname{E}\left[
+      \left\{
+        e_i-\operatorname{E}(e_i)
+      \right\}
+    \right. \\
+    &\; \left.
+      \left\{
+        \sum_{k=1}^n\frac{1-\sum_{j=1}^p\sum_{l=1}^p
+        s^{jl}(x_{lk}-\bar{x}_l)\bar{x}_j}{n}y_k
+        -\operatorname{E}\left(
+          \sum_{k=1}^n\frac{1-\sum_{j=1}^p\sum_{l=1}^p
+          s^{jl}(x_{lk}-\bar{x}_l)\bar{x}_j}{n}y_k
+        \right)
+      \right\}
+    \right]
+  \end{split}\\
+  \notag %3
+  &\text{\;\;\; ($\because$ 式\eqref{eq:0_regressionC}\; $\hat{a}_0=\frac{1}{n}\sum_{i=1}^n\left\{1-\sum_{j=1}^p\sum_{l=1}^p\bar{x}_js^{jl}(x_{li}-\bar{x}_l)\right\}y_i$)} \\
+  \notag %4
+  &=\operatorname{E}\left[
+    \left\{
+      e_i-\operatorname{E}(e_i)
+    \right\}
+    \sum_{k=1}^n\frac{1-\sum_{j=1}^p\sum_{l=1}^ps^{jl}(x_{lk}-\bar{x}_l)\bar{x}_j}{n}\left\{
+      y_k-\operatorname{E}(y_k)
+    \right\}
+  \right] \\
+  \notag %5
+  &=\sum_{k=1}^n\frac{1-\sum_{j=1}^p\sum_{l=1}^ps^{jl}(x_{lk}-\bar{x}_l)\bar{x}_j}{n}\operatorname{E}\left[
+    \left\{
+      e_i-\operatorname{E}(e_i)
+    \right\}
+    \left\{
+      y_k-\operatorname{E}(y_k)
+    \right\}
+  \right]\\
+  \notag %6
+  &=\sum_{k=1}^n\frac{1-\sum_{j=1}^p\sum_{l=1}^ps^{jl}(x_{lk}-\bar{x}_l)\bar{x}_j}{n}\operatorname{E}\left[
+    \left\{
+      e_i-\operatorname{E}(e_i)
+    \right\}
+    \left\{
+      e_k-\operatorname{E}(e_k)
+    \right\}
+  \right] \\
+  \notag 
+  &\text{\quad ($\because$ 式\eqref{eq:e_yi}
+  \; $\operatorname{E}(y_i)=a_0 + a_1x_{1i} + \cdots + a_px_{pi}$, }\\
+  \notag
+  &\text{\qquad 式\eqref{eq:model} 
+  \; $y_i = a_0 + a_1x_{1i} + \cdots + a_px_{pi}+e_i$より)} \\
+  \notag %7
+  &=\sum_{k=1}^n\frac{1-\sum_{j=1}^p\sum_{l=1}^ps^{jl}(x_{lk}-\bar{x}_l)\bar{x}_j}{n}\operatorname{Cov}(e_i, e_k)\\
+  \label{eq:cov_ei_hat_a0} %8
+  &=\frac{1-\sum_{j=1}^p\sum_{l=1}^ps^{jl}(x_{li}-\bar{x}_l)\bar{x}_j}{n}\sigma^2 \\
+  \notag
+  &\text{\quad ($\because$ 式\eqref{eq:sum_cov} 
+  \;$\sum_{k=1}^nc_k\operatorname{Cov}(e_i, e_k) = c_i\sigma^2$より)}
+\end{align}
+式\eqref{eq:cov_ei_hat_a0}より, 式\eqref{eq:e_F_transform}の第4項は, 
+\begin{align}
+  \notag
+  \sum_{i=1}^n\operatorname{Cov}(e_i, \hat{a}_0)
+  &= \sum_{i=1}^n\frac{1-\sum_{j=1}^p\sum_{l=1}^ps^{jl}
+  (x_{li}-\bar{x}_l)\bar{x}_j}{n}\sigma^2 \\
+  \notag
+  &= \sum_{i=1}^n\frac{\sigma^2}{n}
+  -\sum_{j=1}^p\sum_{l=1}^p\frac{s^{jl}\bar{x}_j\sigma^2}{n}\sum_{i=1}^n(x_{li}-\bar{x}_l) \\
+  \notag
+  &=n\frac{\sigma^2}{n} \\
+  \label{eq:cov_eia0_sigma}
+  &=\sigma^2
+\end{align}
+式\eqref{eq:cov_ei_hat_a0}と同様の手法で, 
+\begin{align}
+  \notag
+  \operatorname{Cov}(e_i, \hat{a}_j)
+  &= \operatorname{Cov}\left\{
+    e_i, \frac{1}{n}\sum_{k=1}^n\sum_{l=1}^ps^{jl}(x_{lk}-\bar{x}_l)y_k
+  \right\}\\
+  \label{eq:cov_ei_aj}
+  &= \frac{1}{n}\sum_{l=1}^ps^{jl}(x_{li}-\bar{x}_l)\sigma^2 
+\end{align}
+そして, 式\eqref{eq:cov_ei_aj}より, 式\eqref{eq:e_F_transform}の第5項は, 
+\begin{align}
+  \notag %1
+  \sum_{i=1}^n\sum_{j=1}^p\operatorname{Cov}(e_i, \hat{a}_j)x_{ji}
+  &= \frac{\sigma^2}{n}\sum_{i=1}^n\sum_{j=1}^p\sum_{l=1}^p
+  s^{jl}(x_{li}-\bar{x}_l)x_{ji} \\
+  \notag %2
+  &=\frac{\sigma^2}{n}\sum_{i=1}^n\sum_{j=1}^p\sum_{l=1}^p
+  s^{jl}(x_{li}-\bar{x}_l)\left\{
+    x_{ji}-(\bar{x}_j-\bar{x}_j)
+  \right\}\\
+  \notag %3
+  &=\frac{\sigma^2}{n}\sum_{j=1}^p\sum_{l=1}^ps^{jl}
+  \sum_{i=1}^n(x_{li}-\bar{x}_l)(x_{ji}-\bar{x}_j)
+  -\frac{\sigma^2}{n}\sum_{j=1}^p\sum_{l=1}^ps^{jl}\bar{x}_j\sum_{i=1}^n(x_{li}-\bar{x}_l) \\
+  \notag %4
+  &=\frac{\sigma^2}{n}\sum_{j=1}^p\sum_{l=1}^ps^{jl}ns_{lj} \\
+  \notag %5
+  &=\sigma^2\sum_{j=1}^p\delta(j, j) 
+  \text{\quad ($\because$ 式\eqref{eq:sum_delta} 
+  \;$\sum_{m=1}^ps^{jm}s_{ml} = \delta(j, l)$より)}\\
+  \label{eq:cov_ei_aj_sigma} %6
+  &= \sigma^2p
+  \text{\quad ($\because$ 式\eqref{eq:sum_delta_constant} 
+  \; $\sum_{l=1}^pb_l\delta (j, l)=b_j$より)} 
+\end{align}
+式\eqref{eq:e_F_transform}の第1項は, 
+\begin{align}
+  \notag
+  \sum_{i=1}^n\operatorname{V}(\hat{a}_0)
+  &= \sum_{i=1}^n\frac{\left(
+    1+\sum_{j=1}^p\sum_{l=1}^p\bar{x}_j\bar{x}_ls^{jl}
+  \right)\sigma^2}{n} \\
+  \notag
+  &\text{\quad ($\because$ 式\eqref{eq:v_0} \;$\operatorname{V}(\hat{a}_0)=\left(\frac{1}{n}+\sum_{j=1}^p\sum_{l=1}^p\frac{\bar{x}_j\bar{x}_ls^{jl}}{n}\right)\sigma^2$より)} \\
+  \label{eq:sum_v_0}
+  &=\sigma^2 + \sum_{j=1}^p\sum_{l=1}^p\bar{x}_j\bar{x}_ls^{jl}\sigma^2
+\end{align}
+式\eqref{eq:e_F_transform}の第2項は, 
+\begin{align}
+  \notag
+  \sum_{i=1}^n\sum_{j=1}^p\operatorname{Cov}(\hat{a}_0, \hat{a}_j)x_{ji}
+  &= \sum_{i=1}^n\sum_{j=1}^p\left(
+    -\frac{\sum_{l=1}^p\bar{x}_ls^{jl}\sigma^2}{n}x_{ji}
+  \right)\\
+  \notag
+  & \text{\quad ($\because$ 式\eqref{eq:cov_0j} \;$\operatorname{Cov}(\hat{a}_0, \hat{a}_j) = -\sum_{l=1}^p\frac{\bar{x}_ls^{jl}\sigma^2}{n}$より)}\\
+  \notag
+  &=\sum_{j=1}^p\left(
+    -\sum_{l=1}^p\bar{x}_ls^{jl}\sigma^2
+  \right)
+  \sum_{i=1}^n\frac{x_{ji}}{n}\\
+  \label{eq:cov_0j_transform}
+  &= -\sum_{j=1}^p\sum_{l=1}^p\bar{x}_j\bar{x}_ls^{jl}\sigma^2
+\end{align}
+式\eqref{eq:e_F_transform}の第3項は, 
+\begin{align}
+  \label{eq:3sum_cov_jl}
+  &\sum_{i=1}^n\sum_{j=1}^p\sum_{l=1}^p\operatorname{Cov}(\hat{a}_j, \hat{a}_l)x_{ji}x_{li}
+  =\sum_{i=1}^n\sum_{j=1}^p\sum_{l=1}^p\frac{s^{jl}\sigma^2}{n}x_{ji}x_{li}\\
+  \notag
+  &\text{\quad ($\because$ 式\eqref{eq:cov_jl}
+  \; $\operatorname{Cov}(\hat{a}_j, \hat{a}_l) =\frac{s^{jl}\sigma^2}{n}$より)} 
+\end{align}
+式\eqref{eq:e_F_transform}の第6項は, 
+\begin{align}
+  \notag
+  \operatorname{E}\left(
+    \sum_{i=1}^ne_i^2
+  \right)
+  &= \sum_{i=1}^n\operatorname{E}\left[
+    \left\{
+      e_i-\operatorname{E}(e_i)
+    \right\}^2
+  \right]\\
+  \notag
+  &=\sum_{i=1}^n\operatorname{V}(e_i) \\
+  \label{eq:E_eiei}
+  &=n\sigma^2
+\end{align}
+最後に, 式\eqref{eq:sum_v_0}, 式\eqref{eq:cov_0j_transform}, 式\eqref{eq:3sum_cov_jl}, 式\eqref{eq:cov_eia0_sigma}, 式\eqref{eq:cov_ei_aj_sigma}, 式\eqref{eq:E_eiei}を式\eqref{eq:e_F_transform}に代入して, 
+\begin{align}
+  \notag %1
+  \begin{split}
+    \operatorname{E}\left[
+      \operatorname{F}(\hat{a}_0, \hat{a}_1, \cdots, \hat{a}_p)
+    \right]
+    &=\sum_{i=1}^n\operatorname{V}(\hat{a}_0)
+    +2\sum_{i=1}^n\sum_{j=1}^p\operatorname{Cov}(\hat{a}_0, \hat{a}_j)x_{ji} 
+    +\sum_{i=1}^n\sum_{j=1}^p\sum_{l=1}^p\operatorname{Cov}(\hat{a}_j, \hat{a}_l)x_{ji}x_{li} \\
+    &\quad -2\sum_{i=1}^n\operatorname{Cov}(e_i, \hat{a}_0)
+    -2\sum_{i=1}^n\sum_{j=1}^p\operatorname{Cov}(e_i, \hat{a}_j)x_{ji}
+    +\operatorname{E}\left(
+      \sum_{i=1}^ne_i^2
+    \right)
+  \end{split} \\
+  \notag %2
+  \begin{split}
+    &= \left(
+      \sigma^2 + \sum_{j=1}^p\sum_{l=1}^p\bar{x}_j\bar{x}_ls^{jl}\sigma^2
+    \right)
+    +2\left(
+      -\sum_{j=1}^p\sum_{l=1}^p\bar{x}_j\bar{x}_ls^{jl}\sigma^2
+    \right) \\
+    &\quad \left(
+      \sum_{i=1}^n\sum_{j=1}^p\sum_{l=1}^p\frac{s^{jl}\sigma^2}{n}x_{ji}x_{li}
+    \right)
+    -2\sigma^2  -2\sigma^2p + n\sigma^2
+  \end{split} \\
+  \notag %3
+  &= \left\{
+    n-2p-1+\sum_{j=1}^p\sum_{l=1}^ps^{jl}\left(
+      \frac{1}{n}\sum_{i=1}^nx_{ji}x_{li}-\bar{x}_j\bar{x}_l
+    \right)
+  \right\}\sigma^2\\
+  \notag %4
+  &=\left(
+    n-2p-1+\sum_{j=1}^p\sum_{l=1}^ps^{jl}s_{lj}
+  \right)\sigma^2 \\
+  \notag 
+  & \text{\quad ($\because$ 式\eqref{eq:cov_jl_2} 
+  \;$s_{jl}=\frac{1}{n}\sum_{i=1}^nx_{ji}x_{li}-\bar{x}_j\bar{x}_l$より)} \\
+  \notag %5
+  &=\left(
+    n-2p-1+\sum_{j=1}^p\delta(j, j)
+  \right)\sigma^2\\
+  \notag %6
+  & \text{\quad ($\because$ 式 \eqref{eq:sum_delta}
+  \;$\sum_{m=1}^ps^{jm}s_{ml}=\delta(j, l)$より)} \\
+  \notag
+  &=(n-2p-1+p)\sigma^2 \\
+  %\label{eq:unbiasedD_enum} %8
+  \notag
+  &=(n-p-1)\sigma^2
+\end{align}
+したがって,
+\begin{align*}
+  \operatorname{E}(\operatorname{V}_e)
+  = \frac{\operatorname{E}\left[
+    \operatorname{F}(\hat{a}_0, \hat{a}_1, \cdots, \hat{a}_p)
+  \right]}{n-p-1}
+  =\frac{(n-p-1)\sigma^2}{n-p-1}=\sigma^2
+\end{align*}
+この結果より, 
+\begin{align*}
+  \operatorname{V}_e = \frac{\operatorname{F}(\hat{a}_0, \hat{a}_1, \cdots, \hat{a}_p)}{n-p-1}
+\end{align*}
+が誤差分散$\sigma^2$の不偏推定値であることがわかる.
+\qed

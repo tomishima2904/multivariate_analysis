@@ -1,0 +1,37 @@
+\documentclass[a4paper,10pt,dvipdfmx]{jsarticle}
+
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{subcaption}
+\usepackage{url}
+\usepackage{bm}
+\usepackage{amsmath,amssymb}
+\usepackage{ascmac}
+
+%\captionsetup[subfigure]{labelformat=simple}
+\renewcommand{\thesubfigure}{(\alph{subfigure})}
+
+\newcommand{\qed}{\hfill$\Box$}
+\newcommand{\Proof}{\noindent{\bf Proof.}\quad}
+\makeatletter
+\newcommand{\figcaption}[1]{\def\@captype{figure}\caption{#1}}
+\newcommand{\tblcaption}[1]{\def\@captype{table}\caption{#1}}
+\makeatother
+
+\newcommand{\bhline}[1]{\noalign{\hrule height #1}}  
+\newcommand{\bvline}[1]{\vrule width #1}  
+
+\begin{document}
+
+\title{\vspace{-2cm}$\S1.12$ 回帰式による予測値の区間推定(重回帰の場合)\\ $\S1.13$説明変数の選択}
+\author{富島諒}
+\date{2021年6月17日}
+
+\maketitle
+
+$\S1.11$で紹介した数式は式番号の前に$\clubsuit$を付ける. 
+
+\input{../Section12/section12.tex}
+
+\input{../Section13/section13.tex}
+
+\end{document}

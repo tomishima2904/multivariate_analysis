@@ -1,0 +1,1259 @@
+\documentclass[dvipdfmx]{jsarticle}
+\usepackage{colortbl}
+\usepackage{amsmath}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{ascmac}
+\begin{document}
+\title{重回帰分析}
+\author{B4 鈴木 克樹}
+\maketitle
+
+\section{線形重回帰}
+目的変数$y$に対し，説明変数として$y$に関係の深そうな変数が複数(2つ以上)ある場合がある．このとき，目的変数と複数の説明変数の関係を表すモデルを考える．これを重回帰分析という．
+重回帰分析のモデルには様々なものを推測できるが，ここではもっとも簡単な線形モデルを考える．
+
+表1のように，1つの目的変数$y$と$p$個の説明変数$x_1, x_2, ... , x_p$について$n$個のデータが与えられたとする．
+\begin{table}[htb]
+  \begin{center}
+    \caption{重回帰分析におけるデータ}
+    \begin{tabular}{|>{\columncolor[rgb]{1.0, 0.8, 0.5}} c|c|c|}
+      \hline
+      \rowcolor[rgb]{1.0, 0.8, 0.5}
+      データ番号 & 説明変数 & 目的変数                                                                                                                \\
+      \hline
+      \rowcolor[rgb]{1.0, 0.8, 0.5}
+                 & $y$      & $x_1 \; \;  x_2 \; \; \cdots \cdots \cdots \cdots \cdots \cdots \cdots \cdots \; \; x_p$                                \\
+      \hline
+      $1$        & $y_1$    & $x_{11} \; x_{21} \; \cdots \cdots \cdots \cdots \cdots \cdots \cdots \cdots \; x_{p1}$                                 \\
+      $2$        & $y_2$    & $x_{12} \; x_{22} \; \cdots \cdots \cdots \cdots \cdots \cdots \cdots \cdots \; x_{p2}$                                 \\
+      $\vdots$   & $\vdots$ & $\vdots \; \; \; \; \; \vdots \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \;
+      \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \vdots$                                                                                            \\
+      $i$        & $y_i$    & $x_{1i} \; x_{2i} \; \cdots \cdots \cdots \cdots \cdots \cdots \cdots \cdots \; x_{pi}$                                 \\
+      $\vdots$   & $\vdots$ & $\vdots \; \; \; \; \; \vdots \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \;
+      \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \vdots$                                                                                            \\
+      $n$        & $y_n$    & $x_{1n} \; x_{2n} \; \cdots \cdots \cdots \cdots \cdots \cdots \cdots \cdots \; x_{pn}$                                 \\
+      \hline
+    \end{tabular}
+  \end{center}
+\end{table}
+
+$x_1, x_2, \cdots, x_p$から$y$の値を予測するとき，$x_1, x_2, \cdots, x_p$と$y$の関係を示す1つの数式モデルを設定しなければならない．この数式モデルを(1)式のように与える．$\epsilon_i$は$x_{1i}, x_{2i}, \cdots, x_{pi}$だけでは説明しきれない部分の予測誤差である．
+% (1)
+\begin{equation}
+  y_i = a_0 + a_1x_{1i}+a_2x_{2i}+\cdots + a_p x_{pi}+\epsilon_i
+\end{equation}
+この式を\textbf{線形重回帰モデル(linear multiple recogression model)}と呼ぶ．単回帰分析の場合，$(x,y)$平面上のn個の点の集まりに直線をあてはめるが，重回帰分析の場合は$(x_1, x_2, \cdots, x_p, y)$の$p+1$次元空間でのn個の点の集まりに対し，p次元超平面をあてはめる．そうすることで，説明変数の値を$x_1, x_2, \cdots, x_p$から目的変数の値$y_i$を予測する．p次元超平面を(2)式に示す．
+% (2)
+\begin{equation}
+  y =  a_0 + a_1x_{1}+a_2x_{2}+\cdots + a_p x_{p}
+\end{equation}
+このときの予測誤差$\epsilon_i\;(i=0, 1,\cdots,n)$は(1)式を変形して(3)式のように表される．
+% (3)
+\begin{equation}
+  \epsilon_i = y_i - (a_0 + a_1x_{1i}+a_2x_{2i}+\cdots + a_p x_{pi})
+\end{equation}
+この予測誤差を小さくするために，各予測誤差の平方和を最小にするような$a_0, a_1, \cdots, a_p$を
+求めることにし，それを$\hat{a_0},\hat{a_1},\cdots,\hat{a_p}$と書く．また，各予測誤差の平方和を(4)式に示す．
+% (4)
+\begin{equation}
+  F(a_0,a_1,\cdots,a_p)=\sum_{i=1}^{n}\epsilon_i^2=\sum_{i=1}^{n}\{ y_i - (a_0 + a_1x_{1i}+a_2x_{2i}+\cdots + a_p x_{pi})\}^2
+\end{equation}
+各予測誤差の平方和を最小にするということは，(3)式を$a_0,a_1,\cdots,a_p$で偏微分したものが0となるような
+$\hat{a_0},\hat{a_1},\cdots,\hat{a_p}$を求めることと同値である．つまり(5)式を解けばいい．この解法を\textbf{最小二乗法(least squares method)}という．
+% (5)
+\begin{equation}
+  \begin{cases}
+    \displaystyle
+    \frac{\partial F(a_0,a_1,\cdots,a_p)}{\partial a_0} = 0 & \\
+    \displaystyle
+    \frac{\partial F(a_0,a_1,\cdots,a_p)}{\partial a_1} = 0 & \\
+    \displaystyle
+    \; \; \; \; \; \; \; \; \; \; \; \; \; \; \vdots          \\
+    \displaystyle
+    \frac{\partial F(a_0,a_1,\cdots,a_p)}{\partial a_p} = 0 & \\
+  \end{cases}
+\end{equation}
+
+(5)式の左辺を偏微分後の式に変形すると(6)式のようになる．
+% (6)
+\begin{equation}
+  \begin{cases}
+    \displaystyle
+    \frac{\partial F(a_0,a_1,\cdots,a_p)}{\partial a_0} = -2\sum_{i=1}^n \{ y_i - (a_0 + a_1x_{1i}+a_2x_{2i}+\cdots + a_p x_{pi})\} = 0       & \\
+    \displaystyle
+    \frac{\partial F(a_0,a_1,\cdots,a_p)}{\partial a_1} = -2\sum_{i=1}^n \{ y_i - (a_0 + a_1x_{1i}+a_2x_{2i}+\cdots + a_p x_{pi})\}x_{1i} = 0 & \\
+    \displaystyle
+    \; \; \; \; \; \; \; \; \; \; \; \; \; \; \vdots                                                                                            \\
+    \displaystyle
+    \frac{\partial F(a_0,a_1,\cdots,a_p)}{\partial a_p} = -2\sum_{i=1}^n \{ y_i - (a_0 + a_1x_{1i}+a_2x_{2i}+\cdots + a_p x_{pi})\}x_{pi} = 0 &
+  \end{cases}
+\end{equation}
+
+(6)式の各方程式の$\displaystyle \sum_{i=0}^n y_i$が含まれている項を右辺に移項し，整理すると(7)式を得ることができる．
+% (7)
+\begin{equation}
+  \begin{cases}
+    \displaystyle
+    na_0+\left(\sum_{i=1}^n x_{1i}\right)a_1+\cdots+\left(\sum_{i=1}^n x_{pi}\right)a_p=\sum_{i=1}^ny_i                                                & \\
+    \displaystyle
+    \left(\sum_{i=1}^n x_{1i}\right)a_0+\left(\sum_{i=1}^n x_{1i}^2\right)a_1+\cdots+\left(\sum_{i=1}^n x_{pi}x_{1i}\right)a_p=\sum_{i=1}^ny_i x_{1i}  & \\
+    \displaystyle
+    \; \; \; \vdots                                                                                                                                      \\
+    \displaystyle
+    \left(\sum_{i=1}^n x_{pi}\right)a_0+\left(\sum_{i=1}^n x_{1i}x_{pi}\right)a_1+\cdots+\left(\sum_{i=1}^n x_{pi}^2\right)a_p=\sum_{i=1}^ny_i x_{pi} &
+  \end{cases}
+\end{equation}
+
+(7)式は未知の定数$a_0,a_1,\cdots,a_p$の連立方程式であって，\textbf{正規方程式(normal equation)}と呼ばれている．この式は行列で表現することにより，クラーメルの公式を用いて解くことが可能である．行列形式で表した(7)式を(8)式に示し，クラーメルの公式の説明を(9)式に示す．
+
+
+% (8)
+\begin{equation}
+  \left(
+  \begin{array}{cccc}
+    \displaystyle
+    n                         &
+    \displaystyle
+    \sum_{i=1}^n x_{1i}       &
+    \displaystyle
+    \cdots                    &
+    \displaystyle
+    \sum_{i=1}^n x_{pi}         \\
+    \displaystyle
+    \sum_{i=1}^n x_{1i}       &
+    \displaystyle
+    \sum_{i=1}^n x_{1i}^2     &
+    \displaystyle
+    \cdots                    &
+    \displaystyle
+    \sum_{i=1}^n x_{pi}x_{1i}   \\
+    \vdots                    &
+    \vdots                    &
+    \ddots                    &
+    \vdots                      \\
+    \displaystyle
+    \sum_{i=1}^n x_{pi}       &
+    \displaystyle
+    \sum_{i=1}^n x_{1i}x_{pi} &
+    \displaystyle
+    \cdots                    &
+    \displaystyle
+    \sum_{i=1}^n x_{pi}^2
+  \end{array}
+  \right)
+  \left(
+  \begin{array}{c}
+    a_0    \\
+    a_1    \\
+    \vdots \\
+    a_p
+  \end{array}
+  \right)
+  =
+  \left(
+  \begin{array}{c}
+    \displaystyle
+    \sum_{i=1}^n y_i       \\
+    \displaystyle
+    \sum_{i=1}^n y_ix_{1i} \\
+    \vdots                 \\
+    \displaystyle
+    \sum_{i=1}^n y_ix_{pi}
+  \end{array}
+  \right)
+\end{equation}
+
+% (9)
+\begin{eqnarray}
+連立方程式A\boldsymbol{x}&=&\boldsymbol{b}の解は，\nonumber \\
+x_i&=&\frac{detA_i}{detA} \nonumber \\
+となる．ただし，&x_i&は\boldsymbol{x}の第i成分であり，A_iはAの第i列の部分を\boldsymbol{b}にしたものである．
+\end{eqnarray}
+
+クラーメルの公式より，(8)式を解くと(10)式のような結果を得る．
+% (10)
+\begin{equation}
+  \begin{array}{c}
+    \hat{a_0} =
+    \frac{
+      \begin{vmatrix}
+        \displaystyle
+        \sum_{i=1}^n y_i          &
+        \displaystyle
+        \sum_{i=1}^n x_{1i}       &
+        \displaystyle
+        \cdots                    &
+        \displaystyle
+        \sum_{i=1}^n x_{pi}         \\
+        \displaystyle
+        \sum_{i=1}^n y_ix_{1i}    &
+        \displaystyle
+        \sum_{i=1}^n x_{1i}^2     &
+        \displaystyle
+        \cdots                    &
+        \displaystyle
+        \sum_{i=1}^n x_{pi}x_{1i}   \\
+        \vdots                    &
+        \vdots                    &
+        \ddots                    &
+        \vdots                      \\
+        \displaystyle
+        \sum_{i=1}^n y_ix_{pi}    &
+        \displaystyle
+        \sum_{i=1}^n x_{1i}x_{pi} &
+        \displaystyle
+        \cdots                    &
+        \displaystyle
+        \sum_{i=1}^n x_{pi}^2
+      \end{vmatrix}
+    }{
+      \begin{vmatrix}
+        \displaystyle
+        n                         &
+        \displaystyle
+        \sum_{i=1}^n x_{1i}       &
+        \displaystyle
+        \cdots                    &
+        \displaystyle
+        \sum_{i=1}^n x_{pi}         \\
+        \displaystyle
+        \sum_{i=1}^n x_{1i}       &
+        \displaystyle
+        \sum_{i=1}^n x_{1i}^2     &
+        \displaystyle
+        \cdots                    &
+        \displaystyle
+        \sum_{i=1}^n x_{pi}x_{1i}   \\
+        \vdots                    &
+        \vdots                    &
+        \ddots                    &
+        \vdots                      \\
+        \displaystyle
+        \sum_{i=1}^n x_{pi}       &
+        \displaystyle
+        \sum_{i=1}^n x_{1i}x_{pi} &
+        \displaystyle
+        \cdots                    &
+        \displaystyle
+        \sum_{i=1}^n x_{pi}^2
+      \end{vmatrix}
+    }
+
+    \\
+    \\
+
+    \hat{a_1} =
+    \frac{
+      \begin{vmatrix}
+        \displaystyle
+        n                      &
+        \displaystyle
+        \sum_{i=1}^n y_i       &
+        \displaystyle
+        \cdots                 &
+        \displaystyle
+        \sum_{i=1}^n x_{pi}       \\
+        \displaystyle
+        \sum_{i=1}^n x_{1i}    &
+        \displaystyle
+        \sum_{i=1}^n y_ix_{1i} &
+        \displaystyle
+        \cdots                 &
+        \displaystyle
+        \sum_{i=1}^n x_{pi}x_{1i} \\
+        \vdots                 &
+        \vdots                 &
+        \ddots                 &
+        \vdots                    \\
+        \displaystyle
+        \sum_{i=1}^n x_{pi}    &
+        \displaystyle
+        \sum_{i=1}^n y_ix_{pi} &
+        \displaystyle
+        \cdots                 &
+        \displaystyle
+        \sum_{i=1}^n x_{pi}^2
+      \end{vmatrix}
+    }{
+      \begin{vmatrix}
+        \displaystyle
+        n                         &
+        \displaystyle
+        \sum_{i=1}^n x_{1i}       &
+        \displaystyle
+        \cdots                    &
+        \displaystyle
+        \sum_{i=1}^n x_{pi}         \\
+        \displaystyle
+        \sum_{i=1}^n x_{1i}       &
+        \displaystyle
+        \sum_{i=1}^n x_{1i}^2     &
+        \displaystyle
+        \cdots                    &
+        \displaystyle
+        \sum_{i=1}^n x_{pi}x_{1i}   \\
+        \vdots                    &
+        \vdots                    &
+        \ddots                    &
+        \vdots                      \\
+        \displaystyle
+        \sum_{i=1}^n x_{pi}       &
+        \displaystyle
+        \sum_{i=1}^n x_{1i}x_{pi} &
+        \displaystyle
+        \cdots                    &
+        \displaystyle
+        \sum_{i=1}^n x_{pi}^2
+      \end{vmatrix}
+    }
+    \\
+    \\
+    \vdots
+    \\
+    \\
+    \hat{a_p}=
+    \frac{
+      \begin{vmatrix}
+        \displaystyle
+        n                         &
+        \displaystyle
+        \sum_{i=1}^n x_{1i}       &
+        \displaystyle
+        \cdots                    &
+        \displaystyle
+        \sum_{i=1}^n y_i            \\
+        \displaystyle
+        \sum_{i=1}^n x_{1i}       &
+        \displaystyle
+        \sum_{i=1}^n x_{1i}^2     &
+        \displaystyle
+        \cdots                    &
+        \displaystyle
+        \sum_{i=1}^n y_ix_{1i}      \\
+        \vdots                    &
+        \vdots                    &
+        \ddots                    &
+        \vdots                      \\
+        \displaystyle
+        \sum_{i=1}^n x_{pi}       &
+        \displaystyle
+        \sum_{i=1}^n x_{1i}x_{pi} &
+        \displaystyle
+        \cdots                    &
+        \displaystyle
+        \sum_{i=1}^n y_ix_{pi}
+      \end{vmatrix}
+    }{
+      \begin{vmatrix}
+        \displaystyle
+        n                         &
+        \displaystyle
+        \sum_{i=1}^n x_{1i}       &
+        \displaystyle
+        \cdots                    &
+        \displaystyle
+        \sum_{i=1}^n x_{pi}         \\
+        \displaystyle
+        \sum_{i=1}^n x_{1i}       &
+        \displaystyle
+        \sum_{i=1}^n x_{1i}^2     &
+        \displaystyle
+        \cdots                    &
+        \displaystyle
+        \sum_{i=1}^n x_{pi}x_{1i}   \\
+        \vdots                    &
+        \vdots                    &
+        \ddots                    &
+        \vdots                      \\
+        \displaystyle
+        \sum_{i=1}^n x_{pi}       &
+        \displaystyle
+        \sum_{i=1}^n x_{1i}x_{pi} &
+        \displaystyle
+        \cdots                    &
+        \displaystyle
+        \sum_{i=1}^n x_{pi}^2
+      \end{vmatrix}
+    }
+  \end{array}
+\end{equation}
+
+
+次に，$x_1, x_2, \cdots, x_p$の\textbf{分散共分散行列(variance-cvariance matrix)}を(11)式のようにおく．
+分散共分散行列とは，任意の2つの説明変数間における分散，共分散を行列にまとめたものである．
+% (11)
+\begin{equation}
+  V =
+  \begin{pmatrix}
+    s_{11} & s_{12} & \cdots & s_{1l} & \cdots & s_{1p} \\
+    s_{21} & s_{22} & \cdots & s_{2l} & \cdots & s_{2p} \\
+    \vdots & \vdots & \cdots & \vdots & \cdots & \vdots \\
+    s_{j1} & s_{j2} & \cdots & s_{jl} & \cdots & s_{jp} \\
+    \vdots & \vdots & \cdots & \vdots & \cdots & \vdots \\
+    s_{p1} & s_{p2} & \cdots & s_{pl} & \cdots & s_{pp} \\
+  \end{pmatrix}
+\end{equation}
+ここで，$s_{jl}$は(12)式である．
+% (12)
+\begin{equation}
+  s_{jl}=\frac{1}{n}\sum_{i=1}^n (x_{ji}-\bar{x_j})(x_{li}-\bar{x_l}) \; \; (j,l=1, 2, \cdots, p)
+\end{equation}
+さらに目的変数$y$と説明変数$x_1,x_2,\cdots ,x_p$の共分散を(13)式に示す．
+% (13)
+\begin{equation}
+  \begin{cases}
+    \displaystyle
+    s_{y1} = \frac{1}{n}\sum_{i=1}^n (y_{i}-\bar{y})(x_{1i}-\bar{x_1}) \\
+    \displaystyle
+    s_{y2} = \frac{1}{n}\sum_{i=1}^n (y_{i}-\bar{y})(x_{2i}-\bar{x_2}) \\
+    \; \; \; \; \; \vdots                                              \\
+    \displaystyle
+    s_{yp} = \frac{1}{n}\sum_{i=1}^n (y_{i}-\bar{y})(x_{pi}-\bar{x_p})
+  \end{cases}
+\end{equation}
+$\bar{y}$と$\bar{x_j}$は(14)式で表される．
+% (14)
+\begin{equation}
+  \bar{y}=\frac{1}{n}\sum_{i=1}^n y_i , \;\bar{x_j}=\frac{1}{n} \sum_{i=1}^{n} x_{ji} \; \; (j=1, 2, \cdots, p)
+\end{equation}
+
+$\hat{a_0},\hat{a_1}, \cdots, \hat{a_p}$を分散・共分散を用いて表すことを考える．
+$\hat{a_0},\hat{a_1}, \cdots, \hat{a_p}$は(7)式の正規方程式を満たすから，その一番上の等式より，(15)式を得る．
+
+% (7)
+\begin{equation}
+  \begin{cases}
+    \displaystyle
+    na_0+\left(\sum_{i=1}^n x_{1i}\right)a_1+\cdots+\left(\sum_{i=1}^n x_{pi}\right)a_p=\sum_{i=1}^ny_i                                                & \\
+    \displaystyle
+    \left(\sum_{i=1}^n x_{1i}\right)a_0+\left(\sum_{i=1}^n x_{1i}^2\right)a_1+\cdots+\left(\sum_{i=1}^n x_{pi}x_{1i}\right)a_p=\sum_{i=1}^ny_i x_{1i}  & \\
+    \displaystyle
+    \; \; \; \vdots                                                                                                                                      \\
+    \displaystyle
+    \left(\sum_{i=1}^n x_{pi}\right)a_0+\left(\sum_{i=1}^n x_{1i}x_{pi}\right)a_1+\cdots+\left(\sum_{i=1}^n x_{pi}^2\right)a_p=\sum_{i=1}^ny_i x_{pi} &
+    \tag{7}
+  \end{cases}
+\end{equation}
+
+
+% (15)
+\begin{eqnarray}
+  \displaystyle
+    &&n\hat{a_0}+\left(\sum_{i=1}^n x_{1i}\right)\hat{a_1}+\cdots+\left(\sum_{i=1}^n x_{pi}\right)\hat{a_p}=\sum_{i=1}^ny_i \nonumber \\
+    &&\hat{a_0} + \left(\frac{1}{n}\sum_{i=1}^n x_{1i}\right)\hat{a_1}+\cdots+\left(\frac{1}{n}\sum_{i=1}^n x_{pi}\right)\hat{a_p}=\frac{1}{n}\sum_{i=1}^ny_i \nonumber \\
+    && \; \; \; \;\hat{a_0}+\hat{a_1}\bar{x_1}+\cdots+\hat{a_p}\bar{x_p} = \bar{y} \nonumber \\
+    && \; \; \; \; \hat{a_0} = \bar{y}-(\hat{a_1}\bar{x_1}+\cdots+\hat{a_p}\bar{x_p})
+  \end{eqnarray}
+また，次の操作がわかりやすくなるように(7)式の左辺を右辺に移行し，変形したものを(16)式に示す．
+% (16)
+\begin{eqnarray}
+  \begin{cases}
+    \displaystyle
+    \sum_{i=1}^n y_i - \sum_{i=1}^n \hat{a_0} + \left(\sum_{i=1}^n x_{1i} \right)\hat{a_1} + \cdots + \left(\sum_{i=1}^n x_{pi} \right)\hat{a_p} = 0    \\
+    \displaystyle
+    \left(\sum_{i=1}^n x_{1i} \right)\hat{a_0} + \left(\sum_{i=1}^n x_{1i}^2 \right)\hat{a_1} + \cdots + \left(\sum_{i=1}^n x_{pi}x_{1i} \right)\hat{a_p} = 0    \\
+    \; \; \vdots                                                                     \\
+    \displaystyle
+    \left(\sum_{i=1}^n x_{ji} \right)\hat{a_0} + \left(\sum_{i=1}^n x_{1i}x_{ji} \right)\hat{a_1} + \cdots + \left(\sum_{i=1}^n x_{pi}x_{ji} \right)\hat{a_p} = 0 \\
+    \; \; \vdots                                                                     \\
+    \displaystyle
+    \left(\sum_{i=1}^n x_{pi} \right)\hat{a_0} + \left(\sum_{i=1}^n x_{1i}x_{pi} \right)\hat{a_1} + \cdots + \left(\sum_{i=1}^n x_{pi}^2 \right)\hat{a_p} = 0
+  \end{cases}
+  \nonumber 
+  \\
+  \nonumber
+  \\
+  \begin{cases}
+    \displaystyle
+    \sum_{i=1}^n \{ y_i-(\hat{a_0}+\hat{a_1}x_{1i}+\cdots+\hat{a_p}x_{pi})\}=0       \\
+    \displaystyle
+    \sum_{i=1}^n \{ y_i-(\hat{a_0}+\hat{a_1}x_{1i}\cdots+\hat{a_p}x_{pi})\}x_{1i}=0  \\
+    \; \; \vdots                                                                     \\
+    \displaystyle
+    \sum_{i=1}^n \{ y_i-(\hat{a_0}+\hat{a_1}x_{1i}+\cdots+\hat{a_p}x_{pi})\}x_{ji}=0 \\
+    \; \; \vdots                                                                     \\
+    \displaystyle
+    \sum_{i=1}^n \{ y_i-(\hat{a_0}+\hat{a_1}x_{1i}+\cdots+\hat{a_p}x_{pi})\}x_{pi}=0
+  \end{cases}
+\end{eqnarray}
+(15)式を(16)式に代入する．代入し，整理した式を(17)式に示す．
+% (17)
+\begin{eqnarray}
+  \begin{cases}
+    \displaystyle
+    \sum_{i=1}^n [y_i-\{(\bar{y}-\hat{a_1}\bar{x_1}-\cdots-\hat{a_p}\bar{x_p})+\hat{a_1}x_{1i}+\cdots+\hat{a_p}x_{pi}\}]=0       \\
+    \displaystyle
+    \sum_{i=1}^n [y_i-\{(\bar{y}-\hat{a_1}\bar{x_1}-\cdots-\hat{a_p}\bar{x_p})+\hat{a_1}x_{1i}\cdots+\hat{a_p}x_{pi}\}]x_{1i}=0  \\
+    \; \; \vdots                                                                     \\
+    \displaystyle
+    \sum_{i=1}^n [y_i-\{(\bar{y}-\hat{a_1}\bar{x_1}-\cdots-\hat{a_p}\bar{x_p})+\hat{a_1}x_{1i}+\cdots+\hat{a_p}x_{pi}\}]x_{ji}=0 \\
+    \; \; \vdots                                                                     \\
+    \displaystyle
+    \sum_{i=1}^n [y_i-\{\bar{y}-\hat{a_1}\bar{x_1}-\cdots-\hat{a_p}\bar{x_p})+\hat{a_1}x_{1i}+\cdots+\hat{a_p}x_{pi}\}]x_{pi}=0
+  \end{cases}
+  \nonumber
+  \\
+  \begin{cases}
+    \displaystyle
+    \sum_{i=1}^n \{ (y_i-\bar{y})-\hat{a_1}(x_{1i}-\bar{x_1})-\cdots-\hat{a_p}(x_{pi}-\bar{x_p}\}=0       \\
+    \displaystyle
+    \sum_{i=1}^n \{ (y_i-\bar{y})-\hat{a_1}(x_{1i}-\bar{x_1})-\cdots-\hat{a_p}(x_{pi}-\bar{x_p})\}x_{1i}=0 \\
+    \; \; \vdots                                                                                           \\
+    \displaystyle
+    \sum_{i=1}^n \{ (y_i-\bar{y})-\hat{a_1}(x_{1i}-\bar{x_1})-\cdots-\hat{a_p}(x_{pi}-\bar{x_p})\}x_{ji}=0 \\
+    \; \; \vdots                                                                                           \\
+    \displaystyle
+    \sum_{i=1}^n \{ (y_i-\bar{y})-\hat{a_1}(x_{1i}-\bar{x_1})-\cdots-\hat{a_p}(x_{pi}-\bar{x_p})\}x_{pi}=0
+  \end{cases}
+\end{eqnarray}
+
+説明の簡略化のため，(17)式の連立方程式を上から順番に$0,1, \cdots ,p$でラベル付けする．
+$j(j=1,2,\cdots, p)$の方程式から$0$の方程式に$\bar{x_j}$を掛けて，減算すると(18)式のようになる．
+% (18)
+\begin{eqnarray}
+  &&
+  \begin{cases}
+    \displaystyle
+    \sum_{i=1}^n [\{ (y_i-\bar{y})-\hat{a_1}(x_{1i}-\bar{x_1})-\cdots-\hat{a_p}(x_{pi}-\bar{x_p})\}x_{1i}-\{ (y_i-\bar{y})-\hat{a_1}(x_{1i}-\bar{x_1})-\cdots-\hat{a_p}(x_{pi}-\bar{x_p}\}\bar{x_1}]=0 \\
+    \; \; \vdots                                                                                           \\
+    \displaystyle
+    \sum_{i=1}^n [\{ (y_i-\bar{y})-\hat{a_1}(x_{1i}-\bar{x_1})-\cdots-\hat{a_p}(x_{pi}-\bar{x_p})\}x_{ji}-\{ (y_i-\bar{y})-\hat{a_1}(x_{1i}-\bar{x_1})-\cdots-\hat{a_p}(x_{pi}-\bar{x_p}\}\bar{x_j}]=0 \\
+    \; \; \vdots                                                                                           \\
+    \displaystyle
+    \sum_{i=1}^n [\{ (y_i-\bar{y})-\hat{a_1}(x_{1i}-\bar{x_1})-\cdots-\hat{a_p}(x_{pi}-\bar{x_p})\}x_{pi}-\{ (y_i-\bar{y})-\hat{a_1}(x_{1i}-\bar{x_1})-\cdots-\hat{a_p}(x_{pi}-\bar{x_p}\}\bar{x_p}]=0
+  \end{cases}
+  \nonumber
+  \\
+  &&
+  \begin{cases}
+    \displaystyle
+    \sum_{i=1}^n \{ (y_i-\bar{y})-\hat{a_1}(x_{1i}-\bar{x_1})-\cdots-\hat{a_p}(x_{pi}-\bar{x_p})\}(x_{1i}-\bar{x_1})=0 \\
+    \; \; \vdots                                                                                                       \\
+    \displaystyle
+    \sum_{i=1}^n \{ (y_i-\bar{y})-\hat{a_1}(x_{1i}-\bar{x_1})-\cdots-\hat{a_p}(x_{pi}-\bar{x_p})\}(x_{ji}-\bar{x_j})=0 \\
+    \; \; \vdots                                                                                                       \\
+    \displaystyle
+    \sum_{i=1}^n \{ (y_i-\bar{y})-\hat{a_1}(x_{1i}-\bar{x_1})-\cdots-\hat{a_p}(x_{pi}-\bar{x_p})\}(x_{pi}-\bar{x_p})=0
+  \end{cases}
+\end{eqnarray}
+
+(18)式を(11)式と(12)式の記号を用いて整理すると(19)式のようになる．
+% (19)
+\begin{equation}
+  \begin{cases}
+    s_{11}\hat{a_1}+s_{12}\hat{a_2}+\cdots+s_{1p}\hat{a_p}=s_{y1} \\
+    s_{21}\hat{a_1}+s_{22}\hat{a_2}+\cdots+s_{2p}\hat{a_p}=s_{y2} \\
+    \; \; \vdots                                                  \\
+    s_{j1}\hat{a_1}+s_{j2}\hat{a_2}+\cdots+s_{jp}\hat{a_p}=s_{yj} \\
+    \; \; \vdots                                                  \\
+    s_{p1}\hat{a_1}+s_{p2}\hat{a_2}+\cdots+s_{pp}\hat{a_p}=s_{yp}
+  \end{cases}
+\end{equation}
+
+% (11)
+\begin{equation}
+  V =
+  \begin{pmatrix}
+    s_{11} & s_{12} & \cdots & s_{1l} & \cdots & s_{1p} \\
+    s_{21} & s_{22} & \cdots & s_{2l} & \cdots & s_{2p} \\
+    \vdots & \vdots & \cdots & \vdots & \cdots & \vdots \\
+    s_{j1} & s_{j2} & \cdots & s_{jl} & \cdots & s_{jp} \\
+    \vdots & \vdots & \cdots & \vdots & \cdots & \vdots \\
+    s_{p1} & s_{p2} & \cdots & s_{pl} & \cdots & s_{pp} \\
+  \end{pmatrix}
+  \tag{11}
+\end{equation}
+
+% (12)
+\begin{equation}
+  s_{jl}=\frac{1}{n}\sum_{i=1}^n (x_{ji}-\bar{x_j})(x_{li}-\bar{x_l}) \; \; (j,l=1, 2, \cdots, p)
+  \tag{12}
+\end{equation}
+
+(19)式をクラーメルの公式で解くと(20)式のようになる．
+
+\begin{equation}
+  \begin{array}{c}
+    \hat{a_1} =
+    \frac{
+      \begin{vmatrix}
+        s_{y1}  &
+        s_{12 } &
+        \cdots  &
+        s_{1l}  &
+        \cdots  &
+        s_{1p}
+        \\
+        s_{y2}  &
+        s_{22 } &
+        \cdots  &
+        s_{2l}  &
+        \cdots  &
+        s_{2p}
+        \\
+        \vdots  &
+        \vdots  &
+        \ddots  &
+        \vdots  &
+        \ddots  &
+        \vdots  &
+        \\
+        s_{yj}  &
+        s_{j2}  &
+        \cdots  &
+        s_{jl}  &
+        \cdots  &
+        s_{jp}    \\
+        \vdots  &
+        \vdots  &
+        \ddots  &
+        \vdots  &
+        \ddots  &
+        \vdots  &
+        \\
+        s_{yp}  &
+        s_{p2 } &
+        \cdots  &
+        s_{pl}  &
+        \cdots  &
+        s_{pp}
+      \end{vmatrix}
+    }{
+      \begin{vmatrix}
+        s_{11}  &
+        s_{12 } &
+        \cdots  &
+        s_{1l}  &
+        \cdots  &
+        s_{1p}
+        \\
+        s_{12}  &
+        s_{22 } &
+        \cdots  &
+        s_{2l}  &
+        \cdots  &
+        s_{2p}
+        \\
+        \vdots  &
+        \vdots  &
+        \ddots  &
+        \vdots  &
+        \ddots  &
+        \vdots  &
+        \\
+        s_{1j}  &
+        s_{j2}  &
+        \cdots  &
+        s_{jl}  &
+        \cdots  &
+        s_{jp}    \\
+        \vdots  &
+        \vdots  &
+        \ddots  &
+        \vdots  &
+        \ddots  &
+        \vdots  &
+        \\
+        s_{1p}  &
+        s_{p2 } &
+        \cdots  &
+        s_{pl}  &
+        \cdots  &
+        s_{pp}
+      \end{vmatrix}
+    }
+
+    \\
+    \\
+
+    \hat{a_2} =
+    \frac{
+      \begin{vmatrix}
+        s_{11}  &
+        s_{y1 } &
+        \cdots  &
+        s_{1l}  &
+        \cdots  &
+        s_{1p}
+        \\
+        s_{12}  &
+        s_{y2 } &
+        \cdots  &
+        s_{2l}  &
+        \cdots  &
+        s_{2p}
+        \\
+        \vdots  &
+        \vdots  &
+        \ddots  &
+        \vdots  &
+        \ddots  &
+        \vdots  &
+        \\
+        s_{1j}  &
+        s_{j2}  &
+        \cdots  &
+        s_{yj}  &
+        \cdots  &
+        s_{jp}    \\
+        \vdots  &
+        \vdots  &
+        \ddots  &
+        \vdots  &
+        \ddots  &
+        \vdots  &
+        \\
+        s_{1p}  &
+        s_{yp } &
+        \cdots  &
+        s_{pl}  &
+        \cdots  &
+        s_{pp}
+      \end{vmatrix}
+    }{
+      \begin{vmatrix}
+        s_{11}  &
+        s_{12 } &
+        \cdots  &
+        s_{1l}  &
+        \cdots  &
+        s_{1p}
+        \\
+        s_{12}  &
+        s_{22 } &
+        \cdots  &
+        s_{2l}  &
+        \cdots  &
+        s_{2p}
+        \\
+        \vdots  &
+        \vdots  &
+        \ddots  &
+        \vdots  &
+        \ddots  &
+        \vdots  &
+        \\
+        s_{1j}  &
+        s_{yj}  &
+        \cdots  &
+        s_{jl}  &
+        \cdots  &
+        s_{jp}    \\
+        \vdots  &
+        \vdots  &
+        \ddots  &
+        \vdots  &
+        \ddots  &
+        \vdots  &
+        \\
+        s_{1p}  &
+        s_{p2 } &
+        \cdots  &
+        s_{pl}  &
+        \cdots  &
+        s_{pp}
+      \end{vmatrix}
+    }
+    \\
+    \\
+    \vdots
+    \\
+    \\
+    \hat{a_p}=
+    \frac{
+      \begin{vmatrix}
+        s_{11}  &
+        s_{12 } &
+        \cdots  &
+        s_{1l}  &
+        \cdots  &
+        s_{y1}
+        \\
+        s_{12}  &
+        s_{22 } &
+        \cdots  &
+        s_{2l}  &
+        \cdots  &
+        s_{y2}
+        \\
+        \vdots  &
+        \vdots  &
+        \ddots  &
+        \vdots  &
+        \ddots  &
+        \vdots  &
+        \\
+        s_{1j}  &
+        s_{j2}  &
+        \cdots  &
+        s_{jl}  &
+        \cdots  &
+        s_{yj}    \\
+        \vdots  &
+        \vdots  &
+        \ddots  &
+        \vdots  &
+        \ddots  &
+        \vdots  &
+        \\
+        s_{1p}  &
+        s_{p2 } &
+        \cdots  &
+        s_{pl}  &
+        \cdots  &
+        s_{yp}
+      \end{vmatrix}
+    }{
+      \begin{vmatrix}
+        s_{11}  &
+        s_{12 } &
+        \cdots  &
+        s_{1l}  &
+        \cdots  &
+        s_{1p}
+        \\
+        s_{12}  &
+        s_{22 } &
+        \cdots  &
+        s_{2l}  &
+        \cdots  &
+        s_{2p}
+        \\
+        \vdots  &
+        \vdots  &
+        \ddots  &
+        \vdots  &
+        \ddots  &
+        \vdots  &
+        \\
+        s_{1j}  &
+        s_{j2}  &
+        \cdots  &
+        s_{jl}  &
+        \cdots  &
+        s_{jp}    \\
+        \vdots  &
+        \vdots  &
+        \ddots  &
+        \vdots  &
+        \ddots  &
+        \vdots  &
+        \\
+        s_{1p}  &
+        s_{p2 } &
+        \cdots  &
+        s_{pl}  &
+        \cdots  &
+        s_{pp}
+      \end{vmatrix}
+    }
+  \end{array}
+\end{equation}
+
+$\hat{a_0}$の値は，$\hat{a_j},(j=1,2,\cdots, p)$の値を(14)式に代入することで求めることができる．
+\\
+\par
+よって，(4)式の予測誤差の平方和を最小にする超平面の方程式は(21)式のように表される．
+\begin{equation}
+  y = \hat{a_0}+\hat{a_1}x_1+\hat{a_2}x_2+\cdots+\hat{a_p}x_p
+\end{equation}
+(20)式を目的変数$y$の説明変数$x_1,x_2,\cdots, x_p$に対する\textbf{(線形)重回帰式((linear) multiple regression equation)}，$\hat{a_j}(j=0,1,\cdots,p)$を\textbf{回帰係数}と呼ぶ．
+\par
+\  
+
+\section{重回帰式による予測誤差の不偏分散による標準偏差}
+予測誤差の不偏分散による標準偏差を求めることで，導出した線形重回帰モデルの予測の良し悪しを知ることができる．
+この値が小さければ小さいほど線形重回帰モデルは上手く適合していると言える．
+予測誤差の不偏分散の標準偏差を$s_e$とすると，$s_e$は(22)式のように書ける．
+\begin{eqnarray}
+  s_e&=&\sqrt{\frac{1}{n-(p+1)} \sum_{i=1}^n (\epsilon_i-\bar{\epsilon})^2} \nonumber
+  \\
+  &=&\sqrt{\frac{1}{n-(p+1)}\sum_{i=1}^n \epsilon_i^2}
+\end{eqnarray}
+
+ただし，$\bar{\epsilon}$は(23)式のようになる．
+\begin{eqnarray}
+  \bar{\epsilon}&=&\frac{1}{n} \sum_{i=1}^n \epsilon_i \nonumber
+  \\
+  &=&\frac{1}{n} \sum_{i=1}^n  \{ y_i - (\hat{a_0}+ \hat{a_1}x_1 + \cdots + \hat{a_p}x_p)\}  \nonumber
+  \\
+  &=&\bar{y}-(\hat{a_0}+\hat{a_1}\bar{x_1}+\cdots+\hat{a_p}\bar{x_p}) \nonumber
+  \\
+  (14)式より，\nonumber
+  \\
+  &=&0
+\end{eqnarray}
+
+ここで，予測誤差の不変分散による標準偏差が(22)式になることを証明する．
+ここでは各予測誤差が独立で，$N(0, \sigma^2)$の正規分布に従うことを仮定する．
+まず，予測誤差の母集団の母分散$\sigma^2$を標本から予測することを考える．
+不偏分散の期待値は母分散になることから，(22)式で与えられた$S_e$を用いて(24)式が定義される．
+\begin{equation}
+  E[S_e^2]=\frac{1}{n-(p+1)}E\left[\sum_{i=1}^n\epsilon_i\right]=\sigma^2
+\end{equation}
+(24)式より，(25)式が成り立てば(22)式が成り立つことを言える．
+\begin{equation}
+  E\left[\sum_{i=1}^n\epsilon_i^2\right]=\{n-(p+1)\}\sigma^2
+\end{equation}
+\\
+説明の簡単化のため，ここからはベクトル表現で話を進める．
+ここで，自由に値をとれるデータ数のことを\textbf{自由度(degree of freedom)}と呼ぶ．
+(26)式はn個の観測データで構成され，$\boldsymbol{R^n}$の1要素であるとみなせるから，自由度nである．
+
+\begin{equation}
+  \boldsymbol{y}=
+  \left(
+  \begin{array}{c}
+      y_1    \\
+      y_2    \\
+      \vdots \\
+      y_n
+    \end{array}
+  \right)
+\end{equation}
+(1)式を行列形式で表したものを(27)式に示す．
+% (1)
+\begin{equation}
+  y_i = a_0 + a_1x_{1i}+a_2x_{2i}+\cdots + a_p x_{pi}+\epsilon_i
+  \tag{1}
+\end{equation}
+\begin{eqnarray}
+  \boldsymbol{y}&=&\boldsymbol{X}\boldsymbol{a}+\boldsymbol{e}  \nonumber \\
+  &=&
+  \begin{pmatrix}
+    1      & x_{11} & \cdots & x_{p1} \\
+    1      & x_{12} & \cdots & x_{p2} \\
+    \vdots & \vdots & \vdots & \vdots \\
+    1      & x_{1n} & \cdots & x_{pn}
+  \end{pmatrix}
+  \left(
+  \begin{array}{c}
+      a_0    \\
+      a_1    \\
+      \vdots \\
+      a_p
+    \end{array}
+  \right)
+  +
+  \left(
+  \begin{array}{c}
+      \epsilon_1 \\
+      \epsilon_2 \\
+      \vdots     \\
+      \epsilon_n
+    \end{array}
+  \right)
+\end{eqnarray}
+\begin{equation}
+  \boldsymbol{X}:説明変数がp個のとき，n×(p+1)行列 \nonumber
+\end{equation}
+
+線形重回帰モデルを求める方法は各予測誤差の平方和を最小にするような$\hat{a_0},\hat{a_1},\cdots,\hat{a_p}$を求めることであった．ここで，(4)式をベクトル表記にしたものを(28)式に示す．
+\begin{equation}
+  F(a_0,a_1,\cdots,a_p)=\sum_{i=1}^{n}\epsilon_i^2=\sum_{i=1}^{n}\{ y_i - (a_0 + a_1x_{1i}+a_2x_{2i}+\cdots + a_p x_{pi})\}^2
+  \tag{4}
+\end{equation}
+
+\begin{equation}
+  F(\boldsymbol{a})=\sum_{i=1}^{n}\{ y_i - (a_0 + a_1x_{1i}+a_2x_{2i}+\cdots + a_p x_{pi})\}^2=||\boldsymbol{y}-\boldsymbol{Xa}||^2
+\end{equation}
+(28)式より，最小になるような$F$を求めるということは，$\boldsymbol{y}$とのノルムが最小となる$\boldsymbol{Xa}$(解空間)を求めることと言い換えることができる．$\boldsymbol{Xa}$は$\boldsymbol{a}$の値が不定な自由度$p+1$の超平面である．
+超平面$\boldsymbol{Xa}$と$\boldsymbol{y}$のノルムが最小になるのは，$\boldsymbol{y}$から超平面$\boldsymbol{Xa}$へ垂線を下ろしたときであり，この時の予測誤差は(29)式のように書ける．
+\begin{equation}
+  \boldsymbol{\epsilon}=\boldsymbol{y}-\boldsymbol{X\hat{a}}
+\end{equation}
+予測誤差$\boldsymbol{\epsilon}$は超平面に下ろした垂線であるから，$\boldsymbol{\epsilon}・\boldsymbol{Xa}=0$である．ここで，超平面$\boldsymbol{Xa}$に直交しており，ベクトル空間の原点を通る超平面$\boldsymbol{\pi}$を考える．すると，$\boldsymbol{\epsilon}$は$\boldsymbol{y}$を超平面$\boldsymbol{\pi}$に射影したものだとみなせる．(図1を参照．)
+\par
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=100mm]{重回帰分析.png}
+    \caption{ベクトル空間で表した重回帰分析1}
+  \end{center}
+\end{figure}
+次に，予測誤差$\boldsymbol{e}$の$p+1$個の要素が$0$となるような空間の回転を考える．この操作は超平面$\boldsymbol{\pi}$を構成する$p+1$個のベクトルが今考えているベクトル空間$\boldsymbol{R^n}$の$p+1$個の正規直交基底と一致，すなわち内積が$0$となるように空間を回転することである．(超平面$\boldsymbol{\pi}$を構成するベクトルは直交基底である．)	(図2を参照．)
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=100mm]{重回帰分析2.png}
+    \caption{ベクトル空間で表した重回帰分析2}
+  \end{center}
+\end{figure}
+変換後の予測誤差$\boldsymbol{\epsilon'}$を(30)式に示す．
+\begin{equation}
+  \boldsymbol{\epsilon'}=
+  \left(
+  \begin{array}{c}
+      \epsilon_1'         \\
+      \epsilon_2'         \\
+      \vdots              \\
+      \epsilon_{n-(p+1)}' \\
+      0                   \\
+      \vdots              \\
+      0
+    \end{array}
+  \right)
+\end{equation}
+
+また，$\boldsymbol{\epsilon}$の確率密度関数を(31)式に示し，確率密度関数の回転不変性(ベクトルの回転操作によって関数の値が変わらないこと)を証明する．
+今，n次元の予測誤差について考えているので，確率密度関数は多変量正規分布になるが，$\epsilon_i$は独立であるから，多変量正規分布を正規分布の積で表すことができる．
+\begin{eqnarray}
+  \prod_{i=1}^n \frac{1}{\sqrt{2\pi\sigma^2}}exp(-\frac{\epsilon_i^2}{2\sigma^2})
+  \displaystyle
+  &=&\frac{1}{\sqrt{2\pi\sigma^2}}exp(-\frac{\sum_{i=1}^n\epsilon_i^2}{2\sigma^2}) \nonumber \\
+  &=&\frac{1}{\sqrt{2\pi\sigma^2}}exp(-\frac{||\boldsymbol{\epsilon}||^2}{2\sigma^2})
+\end{eqnarray}
+
+(31)式より確率密度関数は$\boldsymbol{\epsilon}$のノルムにしか影響を受けない．これより，確率密度関数の回転不変性がいえるとともに，引数にノルムしか取らない期待値にも回転不変性がいえる．よって，(32)式が成り立つ．
+\begin{equation}
+  E\left[\sum_{i=1}^n\epsilon_i^2\right]=E[||\boldsymbol{\epsilon}||^2]=E[||\boldsymbol{\epsilon}'||^2]
+\end{equation}
+
+また，(33)式が成り立つ．
+\begin{eqnarray}
+  E[||\boldsymbol{\epsilon}'||^2]&=&E[\epsilon_1^2+\epsilon_2^2+\cdots+\epsilon_{n-(p+1)}^2+0+\cdots+0] \nonumber \\
+  &=&E[\epsilon_1^2]+E[\epsilon_2^2]+\cdots+E[\epsilon_{n-(p+1)}^2] \nonumber \\
+  ここで，E[\epsilon_i^2]&=&V[\epsilon_i]-E[\epsilon_i]^2=V[\epsilon_i]=\sigma^2 \nonumber \\
+  &=&\{n-(p+1)\} \sigma^2
+\end{eqnarray}
+
+(32)式と(33)式より，(24)式が成り立つ．
+
+\section{重相関係数}
+いま，(20)式に基づく予測値を(34)式のようにおく．目的変数の観測値と，予測値および予測誤差を各データに対してまとめておけば表2のように書ける．
+\begin{equation}
+  Y_i = \hat{a_0}+\hat{a_1}x_{1i}+\hat{a_2}x_{2i}+\cdots+\hat{a_p}x_{pi}, (i=1,2,\cdots,n)
+\end{equation}
+\begin{table}[htb]
+  \begin{center}
+    \caption{重回帰分析におけるデータ}
+    \begin{tabular}{|c|c|c|}
+      \hline
+      \rowcolor[rgb]{1.0, 0.8, 0.5}
+      観測値$y$ & 予測値$Y$ & 予測誤差$\epsilon$   \\
+      \hline
+      $y_1$     & $Y_1$     & $\epsilon_1=y_1-Y_1$ \\
+      \hline
+      $y_2$     & $Y_2$     & $\epsilon_2=y_2-Y_2$ \\
+      \hline
+      \vdots    & \vdots    & \vdots               \\
+      \hline
+      $y_n$     & $Y_n$     & $\epsilon_n=y_n-Y_n$ \\
+      \hline
+    \end{tabular}
+  \end{center}
+\end{table}
+
+このとき観測値$y$と予測値$Y$の相関係数$r_{yY}$を$y$と$x_1,x_2,\cdots,x_p$の\textbf{重相関係数(multiple correlation coefficient)}と呼び，新しく$r_{y\cdot12\cdots p}$という記号で書くと(35)式のようになる．
+\begin{eqnarray}
+  r_{y\cdot12\cdots p}&=&\frac{s_{yY}}{\sqrt{s_{yy}s_{YY}}} \nonumber \\
+  &=&\frac{\frac{1}{n}\displaystyle \sum_{i=1}^n(y_i-\bar{y})(Y_i-\bar{Y})}{\sqrt{\frac{1}{n}\displaystyle \sum_{i=1}^n (y_i-\bar{y})^2}\sqrt{\frac{1}{n}\displaystyle \sum_{i=1}^n (Y_i-\bar{Y})^2}} \\
+  ただし，r_{y\cdot12\cdots p}について，　\nonumber　\\
+  0 \leq &r_{y\cdot12\cdots p}& \leq 1 \nonumber
+\end{eqnarray}
+また，行列式を用いると$\hat{a_j}$は(36)式のように，$r_{y\cdot12\cdots p}$は(37)式のようにかける．
+\begin{equation}
+  \hat{a_j}=-\frac{S_{1,j+1}}{S_{11}}
+\end{equation}
+\begin{equation}
+  r_{y\cdot12\cdots p} = \sqrt{1-\frac{S}{S_{yy}S_{11}}}
+\end{equation}
+ただし，ここで，$S$は(38)式で表される．
+\begin{equation}
+  S=
+  \begin{vmatrix}
+    s_{yy} & s_{y1} & s_{y2} & \cdots & \cdots & s_{yp} \\
+    s_{1y} & s_{11} & s_{12} & \cdots & \cdots & s_{1p} \\
+    s_{2y} & s_{21} & s_{22} & \cdots & \cdots & s_{2p} \\
+    \cdots & \cdots & \cdots & \cdots & \cdots & \cdots \\
+    \cdots & \cdots & \cdots & \cdots & \cdots & \cdots \\
+    s_{py} & s_{p1} & s_{p2} & \cdots & \cdots & s_{pp}
+  \end{vmatrix}
+\end{equation}
+$S_{ij}$は行列式$S$の$i$行$j$列の余因子(i行j列の要素を取り除いて作った行列式に$(-1)^{i+j}$をかけたもの)
+\\
+(36)式は(20)式の分子にある行列式の$y$との共分散を表す列が一番左に来るように列変形操作を行えば導出できる．
+\par
+次に(37)式の導出方法を説明する．ここで$s_{yY}$は(39)式のように変形できる．
+\begin{eqnarray}
+  s_{yY}&=&\frac{1}{n}\sum_{i=1}^n (y_i-\bar{y})(Y_i-\bar{Y}) \nonumber \\
+  &=& \frac{1}{n}\sum_{i=1}^n (y_i-\bar{y}) \{(\hat{a_1}x_{1i}+\hat{a_2}x_{2i}+\cdots+\hat{a_p}x_{pi})-(\hat{a_1}\bar{x_1}+\hat{a_2}\bar{x_2}+\cdots+\hat{a_p}\bar{x_p})\} \nonumber \\
+  &=&\frac{1}{n}\sum_{i=1}^n(y_i-\bar{y})\{\hat{a_1}(x_{1i}-\bar{x_1})+\hat{a_2}(x_{2i}-\bar{x_2})+\cdots +\hat{a_p}(x_{pi}-\bar{x_p})\}\nonumber \\
+  &=&\frac{1}{n}\{\hat{a_1}\sum_{i=1}^n(y_i-\bar{y})(x_{1i}-\bar{x_1})+\hat{a_2}\sum_{i=1}^n(y_i-\bar{y})(x_{2i}-\bar{x_2})+\cdots +\hat{a_p}\sum_{i=1}^n(y_i-\bar{y})(x_{pi}-\bar{x_p}\}\nonumber \\
+  &=&\hat{a_1}s_{y1}+\hat{a_2}s_{y2}+\cdots+\hat{a_p}s_{yp} \nonumber \\
+  &=&-s_{y1}\frac{S_{12}}{S_{11}}-s_{y2}\frac{S_{13}}{S_{11}}-\cdots-s_{yp}\frac{S_{1,p+1}}{S_{11}} \nonumber \\
+  &=&s_{yy}-\frac{S}{S_{11}}
+\end{eqnarray}
+(39)式の最後の式変形は行列式$S$の余因子展開(40)式を用いた．
+\begin{equation}
+  S=s_{yy}S_{11}+s_{y1}S_{12}+\cdots+s_{yp}S_{1,p+1}
+\end{equation}
+一方，$s_{YY}$は(41)式のように変形できる．
+\begin{eqnarray}
+  s_{YY}&=&\frac{1}{n}\sum_{i=1}^n \{\hat{a_1}(x_{1i}-\bar{x_1})+\hat{a_2}(x_{2i}-\bar{x_2})+\cdots +\hat{a_p}(x_{pi}-\bar{x_p})\}^2
+  \nonumber \\
+  &=&\hat{a_1}^2s_{11}+\hat{a_2}^2s_{22}+\cdots+\hat{a_p}^2s_{pp}+\cdots+2\hat{a_1}\hat{a_2}s_{12}+2\hat{a_2}{a_3}s_{23}+\cdots \nonumber \\
+  &=&\sum_{j=1}^p\sum_{l=1}^p\hat{a_j}\hat{a_l}s_{jl} \nonumber \\
+  &=&\sum_{j=1}^p\sum_{l=1}^p\frac{\hat{a_j}\hat{a_l}}{n}\sum_{i=1}^n(x_{ji}-\bar{x_j})(x_{li}-\bar{x_l}) \nonumber \\
+  &=&\sum_{j=1}^p\frac{\hat{a_j}}{n}\{\hat{a_1}\sum_{i=1}^n (x_{ji}-\bar{x_j})(x_{1i}-\bar{x_1})+\hat{a_2}\sum_{i=1}^n (x_{ji}-\bar{x_j})(x_{2i}-\bar{x_2}) \nonumber \\
+  && \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \;+ \cdots+\hat{a_p}\sum_{i=1}^n (x_{ji}-\bar{x_j})(x_{pi}-\bar{x_p})\} \nonumber \\
+  &=&\sum_{j=1}^p\frac{\hat{a_j}}{n}\sum_{i=1}^n(x_{ji}-\bar{x_j})\{\hat{a_1}(x_{1i}-\bar{x_1})+\hat{a_2}(x_{2i}-\bar{x_2})+\cdots+\hat{a_p}(x_{pi}-\bar{x_p})\} \nonumber \\
+  &=&\sum_{j=1}^p\frac{\hat{a_j}}{n}\sum_{i=1}^n(x_{ji}-\bar{x_j})(Y_{i}-\bar{Y}) \nonumber \\
+  &=&\sum_{j=1}^p\frac{\hat{a_j}}{n}\sum_{i=1}^n(x_{ji}-\bar{x_j})(y_{i}-\bar{y}-\epsilon_i) \nonumber \\
+  &=&\sum_{j=1}^p\frac{\hat{a_j}}{n}\{\sum_{i=1}^n(x_{ji}-\bar{x_j})(y_{i}-\bar{y})\}-\{\sum_{i=1}^n \epsilon_i(x_{ij}-\bar{xj})\} \nonumber \\
+  &=&\sum_{j=1}^p\frac{\hat{a_j}}{n}\sum_{i=1}^n(x_{ji}-\bar{x_j})(y_{i}-\bar{y}) \nonumber \\
+  &=&\sum_{j=1}^p\hat{a_j}s_{yj} \nonumber \\
+  &=&\frac{1}{n}\sum_{i=1}^n (y_i-\bar{y})\{\hat{a_1}(x_1i-\bar{x_1})+\hat{a_2}(x_2i-\bar{x_2})+\cdots+\hat{a_p}(x_pi-\bar{x_p})\} \nonumber \\
+  &=&\frac{1}{n}\sum_{i=1}^n (y_i-\bar{y})(Y_i-\bar{Y}) \nonumber \\
+  &=&s_{yY}
+\end{eqnarray}
+ここで，$\displaystyle -\{\sum_{i=1}^n \epsilon_i(x_{ij}-\bar{xj})\}$の計算結果は説明変数ベクトルと予測誤差ベクトルが
+直交であることから，説明変数と予測誤差の積和が$0$となることを用いた．したがって，(42)式が導かれる．
+\begin{eqnarray}
+  r_{y\cdot12\cdots p} &=& \frac{s_{yY}}{\sqrt{s_{yy}s_{YY}}} \nonumber \\
+  &=&\frac{s_{yy}-\frac{S}{S_{11}}}{\sqrt{s_{yy}\left(s_{yy}-\frac{S}{S_{11}}\right)}} \nonumber \\
+  &=&\sqrt{1-\frac{S}{s_{yy}s_{11}}}
+\end{eqnarray}
+
+% 偏相関係数
+\section{偏相関係数}
+目的変数$y$に対する説明変数$x_1,x_2\cdots, x_p$のうち，任意の説明変数$x_i$を除く説明変数の回帰を消去することで，
+目的変数$y$ととある説明変数$x_i$の相関を考えることができる．
+\par
+例えば，目的変数$y$および，$x_1$を残りの変数から予測するような2つの重回帰モデルを考える．これを(43)式，(44)式に示す．
+\begin{equation}
+  y = c_0+c_2x_{2}+\cdots+c_px_{p}+\epsilon
+\end{equation}
+\begin{equation}
+  x_1 = d_0+d_2x_{2}+\cdots+d_px_{p}+\epsilon'
+\end{equation}
+
+このとき，最小二乗法によって求めた線形重回帰式は(45)式，(46)式のようになる．
+\begin{equation}
+  y = \hat{c_0}+\hat{c_2}x_{2}+\cdots+\hat{c_p}x_{p}
+\end{equation}
+\begin{equation}
+  x_{1} = \hat{d_0}+\hat{d_2}x_{2}+\cdots+\hat{d_p}x_{p}
+\end{equation}
+ただし，$c_i$と$d_i$は(47)式，(48)式のようになる．$S_{22,11}$はSの2行2列の余因子からさらに1行1列の余因子を取ったもの．$S_{22,1(i+1)}$はSの2行2列の余因子からさらに1行j列の余因子を取ったもの．$S_{11}，S_{22}，S_{11,2(i+1)}$も同様に考える．
+上記のように最初にm行m列の余因子を$S$から取り除けば変数mを取り除いた場合の回帰式についての$S$を構成することができる．
+\begin{equation}
+  \hat{c_i}=-\frac{S_{22,1(i+1)}}{S_{22,11}}
+\end{equation}
+\begin{equation}
+  \hat{d_i}=-\frac{S_{11,2(i+1)}}{S_{11,22}}
+\end{equation}
+予測誤差を(49)式，(50)式のようにおく．
+\begin{equation}
+  u_i=y_i-(\hat{c0}+\hat{c_2}x_{2i}+\cdots+\hat{c_p}x_{pi})
+\end{equation}
+\begin{equation}
+  v_i=x_{1i}-(\hat{d0}+\hat{d_2}x_{2i}+\cdots+\hat{d_p}x_{pi})
+\end{equation}
+
+変数$u$と$v$の単相関係数は(51)式のようにかける．
+\begin{equation}
+  r_{y1\cdot23\cdots p}=\frac{s_{uv}}{\sqrt{s_{uu}s_{vv}}}
+\end{equation}
+ただし，$s_{uu}$，$s_{vv}$，$s_{uv}$，$\bar{u}$，$\bar{v}$は(52)式，(53)式，(54)式，(55)式，(56)式のように定義される．
+\begin{equation}
+  s_{uu}=\frac{1}{n}\sum_{i=1}^n (u_i-\bar{u})^2
+\end{equation}
+\begin{equation}
+  s_{vv}=\frac{1}{n}\sum_{i=1}^n (v_i-\bar{v})^2
+\end{equation}
+\begin{equation}
+  s_{uv}=\frac{1}{n}\sum_{i=1}^n (u_i-\bar{u})(v_i-\bar{v})
+\end{equation}
+\begin{equation}
+  \bar{u}=\frac{1}{n}\sum_{i=1}^n u_i
+\end{equation}
+\begin{equation}
+  \bar{v}=\frac{1}{n}\sum_{i=1}^n v_i
+\end{equation}
+
+(51)式の$r_{y1\cdot23\cdots p}$を$y$および$x_1$から$x_2,x_3,\cdots,x_p$の回帰が消去されたときの\textbf{偏相関係数(partial correlation coefficient)}という．
+(49)式，(50)式からわかるように(51)式で示される偏相関係数は$x_2,x_3,\cdots,x_p$の影響を除いた$y$と$x_1$との相関係数を考えられる．同様にして，$y$と$x_2,x_3,\cdots,x_p$の偏相関係数も定義することができる．
+\par
+また，(39)式に示す行列式$S$と，その余因子を用いると$r_{y1\cdot23\cdots p}$は(57)式のようにも書ける．
+\begin{equation}
+  S=
+  \begin{vmatrix}
+    s_{yy} & s_{y1} & s_{y2} & \cdots & \cdots & s_{yp} \\
+    s_{1y} & s_{11} & s_{12} & \cdots & \cdots & s_{1p} \\
+    s_{2y} & s_{21} & s_{22} & \cdots & \cdots & s_{2p} \\
+    \cdots & \cdots & \cdots & \cdots & \cdots & \cdots \\
+    \cdots & \cdots & \cdots & \cdots & \cdots & \cdots \\
+    s_{py} & s_{p1} & s_{p2} & \cdots & \cdots & s_{pp}
+  \end{vmatrix}
+  \tag{38}
+\end{equation}
+
+\begin{equation}
+  r_{y1\cdot23\cdots p}=-\frac{S_{12}}{\sqrt{S_{11}S_{22}}}
+\end{equation}
+ただし，$S_{11}$，$S_{22}$，$S_{12}$は行列式$S$の1行1列，2行2列，1行2列の余因子．
+\par
+次に，(57)式の導出方法を説明する．ここで$s_{uu}$は(58)式のように変形できる．
+\begin{eqnarray}
+  s_{uu}&=&\frac{1}{n}\sum_{i=1}^n(u_i-\bar{u})^2 \nonumber \\
+  &=&\frac{1}{n}\sum_{i=1}^n \{(y_i-\bar{y})-(\hat{c_2}(x_{2i}-\bar{x_2})-\hat{c_3}(x_{3i}-\bar{x_3})-\cdots\hat{c_p}(x_{pi}-\bar{x_p}))\}^2  \nonumber \\
+  &=&s_{yy}-2\sum_{j=2}^p \hat{c_j}s_{yj} + \sum_{j=2}^p\hat{c_j}\sum_{l=2}^p\hat{c_l}s_{jl} \nonumber \\
+  &=&s_{yy}+2\frac{s_{y2}S_{22,13}}{S_{22,11}}+2\frac{s_{y3}S_{22,14}}{S_{22,11}}+\cdots+2\frac{s_{yp}S_{22,1(p+1)}}{S_{22,11}} + \sum_{j=2}^p\hat{c_j}\sum_{l=2}^p\hat{c_l}s_{jl}  \nonumber \\
+  &=&s_{yy}+\frac{2}{S_{22,11}}\left\{s_{y2}S_{22,13}+s_{y3}S_{22,14}+\cdots+s_{yp}S_{22,1(p+1)}\right\}  + \sum_{j=2}^p\hat{c_j}\sum_{l=2}^p\hat{c_l}s_{jl} \nonumber \\
+  &=&  s_{yy}+\frac{2}{S_{22,11}}\left\{s_{y2}S_{22,13}+s_{y3}S_{22,14}+\cdots+s_{yp}S_{22,1(p+1)}+s_{yy}S_{22,11}-s_{yy}S_{22,11}\right\}  + \sum_{j=2}^p\hat{c_j}\sum_{l=2}^p\hat{c_l}s_{jl}\nonumber \\
+  &=& s_{yy}+\frac{2}{S_{22,11}}\left\{S_{22}-s_{yy}S_{22,11}\right\}  + \sum_{j=2}^p\hat{c_j}\sum_{l=2}^p\hat{c_l}s_{jl}\nonumber \\
+  &=& s_{yy}+\frac{2}{S_{22,11}}\left\{S_{22}-s_{yy}S_{22,11}\right\}  + \sum_{j=2}^p\hat{c_j}(\hat{c_2}s_{j2}+\hat{c_3}s_{j3}+\cdots+\hat{c_p}s_{jp})\nonumber \\
+  &=& s_{yy}+\frac{2}{S_{22,11}}\left\{S_{22}-s_{yy}S_{22,11}\right\}  + \sum_{j=2}^p\hat{c_j}(\hat{c_2}s_{j2}+\hat{c_3}s_{j3}+\cdots+\hat{c_p}s_{jp}+y_{yi}+y_{yi})\nonumber \\
+  &=& s_{yy}+\frac{2}{S_{22,11}}\left\{S_{22}-s_{yy}S_{22,11}\right\} \nonumber \\
+  && + \sum_{j=2}^p\frac{\hat{c_j}}{n}\{\hat{c_2}\sum_{i=1}^n(x_{ji}-\bar{x_j})(x_{2i}-\bar{x_2})+\hat{c_3}\sum_{i=1}^n (x_{ji}-\bar{x_j})(x_{3i}-\bar{x_3}) \nonumber \\
+  && +\cdots+\hat{c_3}\sum_{i=1}^n(x_{ji}-\bar{x_j})(x_{pi}-\bar{x_p})+\sum_{i=1}^n(x_{ji}-\bar{x_j})(xy_{i}-\bar{y})-\sum_{i=1}^n(x_{ji}-\bar{x_j})(y_{i}-\bar{y}))\} \nonumber \\
+  &=& s_{yy}+\frac{2}{S_{22,11}}\left\{S_{22}-s_{yy}S_{22,11}\right\} \nonumber \\
+  &&+ \sum_{j=2}^p\frac{\hat{c_j}}{n}\sum_{i=1}^n(x_{ji}-\bar{x_j})\{\hat{c_2}(x_{2i}-\bar{x_2})+\hat{c_3}(x_{3i}-\bar{x_3})+\cdots+\hat{c_3}(x_{pi}-\bar{x_p})+(y_{i}-\bar{y})-(y_{i}-\bar{y}))\} \nonumber \\
+  &=& s_{yy}+\frac{2}{S_{22,11}}\left\{S_{22}-s_{yy}S_{22,11}\right\} + \sum_{j=2}^p\frac{\hat{c_j}}{n}\sum_{i=1}^n(x_{ji}-\bar{x_j})(y_i-\bar{y})\nonumber \\
+  &=& s_{yy}+\frac{2}{S_{22,11}}\left\{S_{22}-s_{yy}S_{22,11}\right\} + \sum_{j=2}^p\hat{c_j}s_{yj}\nonumber \\
+  &=& s_{yy}+\frac{2}{S_{22,11}}\left\{S_{22}-s_{yy}S_{22,11}\right\} + \frac{1}{S_{22,11}}\left(s_{y2}S_{22,13}+s_{y3}S_{22,14}+\cdots+s_{yp}S_{22,1(p+1)}\right)\nonumber \\
+  &=& s_{yy}+\frac{2}{S_{22,11}}\left\{S_{22}-s_{yy}S_{22,11}\right\} + \frac{1}{S_{22,11}}\left(s_{y2}S_{22,13}+s_{y3}S_{22,14}+\cdots+s_{yp}S_{22,1(p+1)}+s_{yy}S_{22,11}-s_{yy}S_{22,11}\right)\nonumber \\
+  &=& s_{yy}+\frac{2}{S_{22,11}}\left\{S_{22}-s_{yy}S_{22,11}\right\} - \frac{1}{S_{22,11}}\left\{S_{22}-s_{yy}S_{22,11}\right\} \nonumber \\
+  &=& \frac{S_{22}}{S_{22,11}}
+\end{eqnarray}
+同様に$s_{vv}$は(59)式のようになる．
+\begin{equation}
+  S_{vv}=\frac{S_{11}}{S_{11,22}}
+\end{equation}
+$s_{uv}$は(60)式のように変形できる．
+\begin{eqnarray*}
+  s_{uv}&=&\frac{1}{n}\sum_{i=1}^n(u_i-\bar{u})(v_i-\bar{v}) \nonumber \\
+  &=&\frac{1}{n}\sum_{i=1}^n\left\{y_i-(\hat{c_2}x_{2i}+\hat{c_3}x_{3i}+\cdots+\hat{c_p}x_{pi})-\bar{y}+(\hat{c_2}\bar{x_{2}}+\hat{c_3}\bar{x_{3}}+\cdots+\hat{c_p}\bar{x_{pi}})\right\} \nonumber \\
+  &&\left\{x_{1i}-(\hat{d_2}x_{2i}+\hat{d_3}x_{3i}+\cdots+\hat{d_p}x_{pi})-\bar{x_1}+(\hat{d_2}\bar{x_{2}}+\hat{d_3}\bar{x_{3}}+\cdots+\hat{d_p}\bar{x_{pi}})\right\}  \nonumber \\
+  &=&\frac{1}{n}\sum_{i=1}^n\left\{ (y_i-\bar{y})-\sum_{j=2}^p \hat{c_j}(x_{ji}-\bar{x_j})\right\} \left\{ (x_{1i}-\bar{x_1})-\sum_{l=2}^p \hat{d_l}(x_{li}-\bar{x_l})\right\} \nonumber \\
+  &=&\frac{1}{n}\sum_{i=1}^n\{ (y_i-\bar{y})(x_{1i}-\bar{x_1})-\sum_{j=2}^p\hat{c_j}(x_{1i}-\bar{x_1})(x_{ji}-\bar{x_j}) \nonumber \\
+  &&-\sum_{l=2}^p\hat{d_l}(x_{1i}-\bar{x_1})(x_{li}-\bar{x_l})+\sum_{j=2}^p\sum_{l=2}^p\hat{c_j}\hat{d_l}(x_{ji}-\bar{x_j})(x_{li}-\bar{x_l})\} \nonumber \\
+  &=&s_{y1}-\sum_{j=2}^p\hat{c_j}s_{1j}-\sum_{l=2}^p\hat{d_l}s_{yl}+\sum_{j=2}^p\sum_{l=2}^p\hat{c_j}\hat{d_l}s_{jl}\nonumber \\
+  &=&s_{y1}-\sum_{j=2}^p\frac{\hat{c_j}}{n}\sum_{i=1}^n(x_{1i}-\bar{x_1})(x_{ji}-\bar{x_j})-\sum_{l=2}^p\hat{d_l}s_{yl}+\sum_{j=2}^p\sum_{l=2}^p\hat{c_j}\hat{d_l}s_{jl}\nonumber \\
+  &=&s_{y1}-\frac{1}{n} \sum_{i=1}^n\left\{ \hat{c_2}(x_{1i}-\bar{x_1})(x_{2i}-\bar{x_2})+\hat{c_3}(x_{1i}-\bar{x_1})(x_{3i}-\bar{x_3})+\cdots+\hat{c_p}(x_{1i}-\bar{x_1})(x_{pi}-\bar{x_p})\right\} \nonumber \\
+  &&-\sum_{l=2}^p\hat{d_l}s_{yl}+\sum_{j=2}^p\sum_{l=2}^p\hat{c_j}\hat{d_l}s_{jl}\nonumber \\
+  &=&s_{y1}-\frac{1}{n} \sum_{i=1}^n(x_{1i}-\bar{x_1})\left\{ \hat{c_2}(x_{2i}-\bar{x_2})+\hat{c_3}(x_{3i}-\bar{x_3})+\cdots+\hat{c_p}(x_{pi}-\bar{x_p})\right\} -\sum_{l=2}^p\hat{d_l}s_{yl}+\sum_{j=2}^p\sum_{l=2}^p\hat{c_j}\hat{d_l}s_{jl}\nonumber \\
+  &=&s_{y1}-\frac{1}{n} \sum_{i=1}^n(x_{1i}-\bar{x_1})(y_i-\bar{y})-\sum_{l=2}^p\hat{d_l}s_{yl}+\sum_{j=2}^p\sum_{l=2}^p\hat{c_j}\hat{d_l}s_{jl}\nonumber \\
+  &=&s_{y1}-s_{y1}-\sum_{l=2}^p\hat{d_l}s_{yl}+\sum_{j=2}^p\sum_{l=2}^p\hat{c_j}\hat{d_l}s_{jl}\nonumber \\
+  &=&-\sum_{l=2}^p\hat{d_l}s_{yl}+\sum_{j=2}^p\sum_{l=2}^p\hat{c_j}\hat{d_l}s_{jl}\nonumber \\
+\end{eqnarray*}
+\begin{eqnarray}
+  &=&-\sum_{l=2}^p\frac{\hat{d_j}}{n}\sum_{i=1}^n(y_{i}-\bar{y})(x_{ji}-\bar{x_j})+\sum_{j=2}^p\sum_{l=2}^p\hat{c_j}\hat{d_l}s_{jl}\nonumber \\
+  &=&-\frac{1}{n} \sum_{l=1}^n\left\{ \hat{d_2}(y_{i}-\bar{y})(x_{2i}-\bar{x_2})+\hat{d_3}(y_{i}-\bar{y})(x_{3i}-\bar{x_3})+\cdots+\hat{d_p}(y_{i}-\bar{y})(x_{pi}-\bar{x_p})\right\} +\sum_{j=2}^p\sum_{l=2}^p\hat{c_j}\hat{d_l}s_{jl}\nonumber \\
+  &=&-\frac{1}{n} \sum_{i=1}^n(y_{i}-\bar{y})\left\{ \hat{d_2}(x_{2i}-\bar{x_2})+\hat{d_3}(x_{3i}-\bar{x_3})+\cdots+\hat{d_p}(x_{pi}-\bar{x_p})\right\} +\sum_{j=2}^p\sum_{l=2}^p\hat{c_j}\hat{d_l}s_{jl}\nonumber \\
+  &=&-\frac{1}{n} \sum_{i=1}^n(y_{i}-\bar{y})(x_{1i}-\bar{x_1})+\sum_{j=2}^p\sum_{l=2}^p\hat{c_j}\hat{d_l}s_{jl}\nonumber \\
+  &=&-s_{y1}+\sum_{j=2}^p\sum_{l=2}^p\hat{c_j}\hat{d_l}s_{jl}\nonumber \\
+  &=&-s_{y1}+\sum_{j=2}^p\frac{\hat{c_j}}{n}\sum_{i=1}^n\left\{ \hat{d_2}(x_{ji}-\bar{x_j})(x_{2j}-\bar{x_2}) + \hat{d_3}(x_{ji}-\bar{x_j})(x_{3j}-\bar{x_3})+\cdots+\hat{d_p}(x_{ji}-\bar{x_j})(x_{pj}-\bar{x_p})\right\}\nonumber \\
+  &=&-s_{y1}+\sum_{j=2}^p\frac{\hat{c_j}}{n}\sum_{i=1}^n(x_{ji}-\bar{x_i})\left\{ \hat{d_2}(x_{2j}-\bar{x_2}) + \hat{d_3}(x_{3j}-\bar{x_3})+\cdots+\hat{d_p}(x_{pj}-\bar{x_p})\right\}\nonumber \\
+  &=&-s_{y1}+\sum_{j=2}^p\frac{\hat{c_j}}{n}\sum_{i=1}^n(x_{ji}-\bar{x_i})(x_{1i}-\bar{x_1})\nonumber \\
+  &=&-s_{y1}+\sum_{j=2}^p\hat{c_j}s_{j1}\nonumber \\
+  &=&-s_{y1}-\frac{1}{S_{22,11}}(s_{12}S_{22,13}+s_{13}S_{22,14}+\cdots+s_{1p}S_{22,1p})\nonumber \\
+  &=&-s_{y1}-\frac{1}{S_{22,11}}(s_{12}S_{22,13}+s_{13}S_{22,14}+\cdots+s_{1p}S_{22,1p}+s_{1y}S_{22,11}-s_{1y}S_{22,11})\nonumber \\
+  &=&-s_{y1}-\frac{1}{S_{22,11}}(S_{12}-s_{1y}S_{22,11})\nonumber \\
+  &=&-\frac{S_{12}}{S_{22,11}}
+\end{eqnarray}
+ここで，$S_{11,22}=S_{22,11}$であるから，(58)式，(59)式，(60)式から(61)式が求まる．
+\begin{equation}
+  r_{y1\cdot23\cdots p}=\frac{s_{uv}}{\sqrt{s_{uu}s_{vv}}}=\frac{-\frac{S_{12}}{S_{22,11}}}{\sqrt{ \frac{S_{22}}{S_{22,11}} \frac{S_{11}}{S_{11,22}}}}=-\frac{S_{12}}{\sqrt{S_{11}S_{22}}}
+\end{equation}
+
+\end{document}

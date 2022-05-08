@@ -1,0 +1,43 @@
+
+\begin{align}
+  \notag 
+  &\sum_{i=1}^n  \left\{
+      (y_i-\bar{y})-\hat{a}_1(x_{1i}-\bar{x}_1)-\hat{a}_2(x_{2i}-\bar{x}_2)-\cdots -\hat{a}_p(x_{pi}-\bar{x}_p)
+    \right\} = 0 \\
+  \notag
+  &\sum_{i=1}^n  \left\{
+      (y_i-\bar{y})-\hat{a}_1(x_{1i}-\bar{x}_1)-\hat{a}_2(x_{2i}-\bar{x}_2)-\cdots -\hat{a}_p(x_{pi}-\bar{x}_p)\right
+    \}x_{1i} = 0 \\
+  \label{eq:ch5_19}
+  &\quad \vdots \\
+  \notag
+  &\sum_{i=1}^n  \left\{
+      (y_i-\bar{y})-\hat{a}_1(x_{1i}-\bar{x}_1)-\hat{a}_2(x_{2i}-\bar{x}_2)-\cdots -\hat{a}_p(x_{pi}-\bar{x}_p)\right
+    \}x_{ji} = 0\\
+  \notag
+  &\quad \vdots \\
+  \notag
+  &\sum_{i=1}^n  \left\{
+      (y_i-\bar{y})-\hat{a}_1(x_{1i}-\bar{x}_1)-\hat{a}_2(x_{2i}-\bar{x}_2)-\cdots -\hat{a}_p(x_{pi}-\bar{x}_p)\right
+    \}x_{pi} = 0
+\end{align}
+
+%自由度(n-p-1)
+り, かつ, 
+\begin{align*}
+  \operatorname{E}\left[
+    \sum(y_i-Y_i)^2/\sigma^2
+  \right] = \operatorname{E}[S_e/\sigma^2] = n-p-1 \text{\qquad (\ref{sec:ve_unbiased}より)}
+\end{align*}
+
+\begin{align*}
+  \operatorname{E}[\sum(Y_i-\bar{Y})^2/\sigma^2]
+  &= \operatorname{E}[S_R/\sigma^2] \\
+  &= \operatorname{E}\left[
+    (S_T-S_e)/\sigma^2
+  \right] \\
+  &= \operatorname{E}\left[S_T/\sigma^2\right]
+  - \operatorname{E}\left[S_e/\sigma^2\right] \\
+  &= (n-1) - (n-p-1) = p
+\end{align*}
+となり, 

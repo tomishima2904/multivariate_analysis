@@ -1,0 +1,170 @@
+PWD /Users/tomishima2904/Desktop/B4/Â§öÂ§âÈáèËß£Êûê„Çª„Çô„Éü/tahen_second/MAIN
+INPUT /usr/local/texlive/2020/texmf.cnf
+INPUT /usr/local/texlive/2020/texmf-dist/web2c/texmf.cnf
+INPUT /usr/local/texlive/2020/texmf.cnf
+INPUT /usr/local/texlive/2020/texmf-dist/web2c/texmf.cnf
+INPUT /usr/local/texlive/2020/texmf-var/web2c/eptex/platex.fmt
+INPUT /Users/tomishima2904/Desktop/B4/¬ø —ŒÃ≤Ú¿œ•º•ﬂ/tahen_second/MAIN/tahen_second.tex
+OUTPUT tahen_second.log
+INPUT /usr/local/texlive/2020/texmf-dist/tex/platex/jsclasses/jsarticle.cls
+INPUT /usr/local/texlive/2020/texmf-dist/tex/platex/jsclasses/jsarticle.cls
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/map/fontname/texfonts.map
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/ptex-fonts/standard/tmin10.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/ptex-fonts/jis/jis.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/ptex-fonts/standard/tmin10.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/ptex-fonts/jis/jis.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/cm/cmr8.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/tex/platex/jsclasses/jslogo.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/platex/jsclasses/jslogo.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/platex/jsclasses/jslogo.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/graphics/graphicx.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/graphics/graphicx.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/graphics/keyval.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/graphics/keyval.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/graphics/graphics.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/graphics/graphics.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/graphics/trig.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/graphics/trig.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/graphics-def/dvipdfmx.def
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/graphics-def/dvipdfmx.def
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/caption/subcaption.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/caption/subcaption.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/caption/caption.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/caption/caption.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/caption/caption3.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/caption/caption3.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/url/url.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/url/url.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/tools/bm.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/tools/bm.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/amsmath/amsmath.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/amsmath/amsmath.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/amsmath/amstext.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/amsmath/amstext.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/amsmath/amsgen.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/amsmath/amsgen.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/amsmath/amsbsy.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/amsmath/amsbsy.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/amsmath/amsopn.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/amsmath/amsopn.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/amssymb.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/amssymb.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/ascmac/ascmac.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/ascmac/ascmac.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/ascmac/tascmac.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/ascmac/tascmac.sty
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/ascmac/ascgrp.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/l3backend/l3backend-dvipdfmx.def
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/l3backend/l3backend-dvipdfmx.def
+INPUT tahen_second.aux
+INPUT tahen_second.aux
+OUTPUT tahen_second.aux
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/ptex-fonts/standard/tmin10.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/ptex-fonts/jis/jis.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/cm/cmr17.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/ptex-fonts/standard/tmin10.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/ptex-fonts/jis/jis.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/cm/cmr12.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/cm/cmr6.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/cm/cmmi12.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/cm/cmmi8.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/cm/cmmi6.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/cm/cmsy8.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/cm/cmsy6.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/cm/cmex10.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/ptex-fonts/jis/jis.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/cm/cmbx8.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/cm/cmbx6.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/cm/cmmib10.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmmib8.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmmib6.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/cm/cmbsy10.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy8.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy6.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/ptex-fonts/jis/jisg.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/ptex-fonts/jis/jisg.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/ptex-fonts/jis/jisg.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/umsa.fd
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/umsa.fd
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam7.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/umsb.fd
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/umsb.fd
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm7.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/ptex-fonts/standard/tmin10.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/ptex-fonts/jis/jis.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/cm/cmr12.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/ptex-fonts/standard/tgoth10.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/ptex-fonts/jis/jisg.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/cm/cmss12.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/ptex-fonts/standard/tgoth10.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/cm/cmss12.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/ptex-fonts/jis/jis.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/ptex-fonts/jis/jis.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/cm/cmbx7.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/cm/cmbx5.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/cm/cmmib10.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmmib7.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmmib5.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/cm/cmbsy10.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy7.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy5.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/ptex-fonts/jis/jisg.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/ptex-fonts/jis/jisg.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/ptex-fonts/jis/jisg.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam7.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam5.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm7.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm5.tfm
+INPUT ../pics/cluster_1or.png
+INPUT extractbb -B cropbox -O ../pics/cluster_1or.png
+OUTPUT tahen_second.dvi
+INPUT ../pics/SDM.png
+INPUT extractbb -B cropbox -O ../pics/SDM.png
+INPUT ../pics/LDM.png
+INPUT extractbb -B cropbox -O ../pics/LDM.png
+INPUT ../pics/GAM.png
+INPUT extractbb -B cropbox -O ../pics/GAM.png
+INPUT ../pics/MED.png
+INPUT extractbb -B cropbox -O ../pics/MED.png
+INPUT ../pics/Center.png
+INPUT extractbb -B cropbox -O ../pics/Center.png
+INPUT ../pics/Ward.png
+INPUT extractbb -B cropbox -O ../pics/Ward.png
+INPUT ../pics/aids.png
+INPUT extractbb -B cropbox -O ../pics/aids.png
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/ptex-fonts/standard/tgoth10.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/cm/cmss10.tfm
+INPUT ../pics/tab1.png
+INPUT extractbb -B cropbox -O ../pics/tab1.png
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/base/omscmr.fd
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/base/omscmr.fd
+INPUT ../pics/dendro_1.png
+INPUT extractbb -B cropbox -O ../pics/dendro_1.png
+INPUT ../pics/tab2.png
+INPUT extractbb -B cropbox -O ../pics/tab2.png
+INPUT ../pics/dendro_2.png
+INPUT extractbb -B cropbox -O ../pics/dendro_2.png
+INPUT ../pics/dendro_final.png
+INPUT extractbb -B cropbox -O ../pics/dendro_final.png
+INPUT ../pics/dendro_orange.png
+INPUT extractbb -B cropbox -O ../pics/dendro_orange.png
+INPUT ../pics/aids_4.png
+INPUT extractbb -B cropbox -O ../pics/aids_4.png
+INPUT tahen_second.aux

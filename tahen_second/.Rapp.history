@@ -1,0 +1,27 @@
+1 + 2
+sqrt(2)
+demo(graphics)
+q
+load(".RData")
+USArrests
+data <- USArrests
+pairs(data)
+km <- kmeans(data,3)
+pairs(km)
+pairs(km$cluster)
+library(Rcmdr)
+R Graphics
+library(Rcmdr)
+library(gdata)
+xp <- read.xlsx'("data.xlsx", header=TRUE)
+xp
+1
+install.packages('openxlsx')
+xp <-read.xlsx("data.xlsx")
+xp <- read.xlsx("data.xlsx")
+library(openxlsx)
+xp <- read.xlsx("data.xlsx")
+xp
+plot(xp)
+plot(xp$6.6)
+plot(xp$x, xp$y)

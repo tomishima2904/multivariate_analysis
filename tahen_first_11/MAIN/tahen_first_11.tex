@@ -1,0 +1,35 @@
+\documentclass[a4paper,10pt,dvipdfmx]{jsarticle}
+
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{subcaption}
+\usepackage{url}
+\usepackage{bm}
+\usepackage{amsmath,amssymb}
+\usepackage{ascmac}
+
+%\captionsetup[subfigure]{labelformat=simple}
+\renewcommand{\thesubfigure}{(\alph{subfigure})}
+
+\newcommand{\qed}{\hfill$\Box$}
+\newcommand{\Proof}{\noindent{\bf Proof.}\quad}
+\makeatletter
+\newcommand{\figcaption}[1]{\def\@captype{figure}\caption{#1}}
+\newcommand{\tblcaption}[1]{\def\@captype{table}\caption{#1}}
+\makeatother
+
+\newcommand{\bhline}[1]{\noalign{\hrule height #1}}  
+\newcommand{\bvline}[1]{\vrule width #1}  
+
+\begin{document}
+
+\title{\vspace{-2cm}$\S$1.11 回帰係数の推定と検定}
+\author{富島諒}
+\date{2021年6月17日}
+
+\maketitle
+
+\input{../Estimation_of_regression/estimation_of_regression.tex}
+
+\input{../Proof/proof.tex}
+
+\end{document}

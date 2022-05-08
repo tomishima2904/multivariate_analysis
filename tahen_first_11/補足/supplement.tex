@@ -1,0 +1,92 @@
+\documentclass[a4paper,11pt,dvipdfmx]{jsarticle}
+
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{subcaption}
+\usepackage{url}
+\usepackage{bm}
+\usepackage{amsmath,amssymb}
+\usepackage{ascmac}
+\usepackage{listings,jlisting}
+
+\lstset{%
+  language={C},
+  basicstyle={\small},
+  identifierstyle={\small},
+  commentstyle={\small\itshape},
+  keywordstyle={\small\bfseries},
+  ndkeywordstyle={\small},
+  stringstyle={\small\ttfamily},
+  frame={tb},
+  breaklines=true,
+  columns=[l]{fullflexible},
+  numbers=left,
+  xrightmargin=0zw,
+  xleftmargin=3zw,
+  numberstyle={\scriptsize},
+  stepnumber=1,
+  numbersep=1zw,
+  lineskip=-0.5ex
+}
+
+%\captionsetup[subfigure]{labelformat=simple}
+\renewcommand{\thesubfigure}{(\alph{subfigure})}
+
+\newcommand{\qed}{\hfill$\Box$}
+\newcommand{\Proof}{\noindent{\bf 証明}\quad}
+\newcommand{\Thm}{\noindent{\bf 定理}\quad}
+\newcommand{\Exercise}{\noindent{\bf 例題}\quad}
+\newcommand{\Ans}{\noindent{\bf 解答}\quad}
+\makeatletter
+\newcommand{\figcaption}[1]{\def\@captype{figure}\caption{#1}}
+\newcommand{\tblcaption}[1]{\def\@captype{table}\caption{#1}}
+\makeatother
+
+\newcommand{\bhline}[1]{\noalign{\hrule height #1}}  
+\newcommand{\bvline}[1]{\vrule width #1}  
+
+\begin{document}
+
+\title{\vspace{-2cm}補足資料}
+\author{富島諒}
+\date{\today}
+
+\maketitle
+
+回帰の変動は
+\begin{align*}
+  \sum_{i=1}^{n}(Y_i-\bar{Y})^2
+  &= \sum_{i=1}^{n}\left\{
+    (\hat{a}_0 + \hat{a}_{1}x_{1i} + \cdots + \hat{a}_{p}x_{pi})
+    - (\hat{a}_0 + \hat{a}_{1}\bar{x}_1 + \cdots + \hat{a}_{p}\bar{x}_p)
+  \right\}^2 \\
+  &= \sum_{i=1}^{n} \left\{
+    \hat{a}_1(x_{1i}-\bar{x}_1) + \cdots + \hat{a}_p(x_{pi}-\bar{x}_p)
+  \right\}^2 \\
+  &= \sum_{i=1}^{n} \sum_{j=1}^p \hat{a}_j^2(x_{ji} - \bar{x}_{j})^2
+  + \sum_{i=1}^n\sum_{j=1}^p\sum_{l=1}^p \hat{a}_j\hat{a}_l(x_{ji}-\bar{x}_{j})(x_{li}-\bar{x}_l) \qquad (j\neq l)\\
+  &= n\sum_{j=1}^p \hat{a}_j^2s_{jj} 
+  + n\sum_{j=1}^p\sum_{l=1}^p\hat{a}_j\hat{a}_ls_{jl} 
+\end{align*}
+$\operatorname{V}(\hat{a}_j)=\frac{\sigma^2}{ns_{jj}}$, かつ, 説明変数$x_j, x_l$は互いに独立であることを用いると, 
+\begin{align*}
+  \sum_{i=1}^{n}(Y_i-\bar{Y})^2
+  &= \sum_{j=1}^p\frac{\hat{a}_j^2\sigma^2}{\operatorname{V}(\hat{a}_j)} \\
+  \frac{1}{\sigma^2}\sum_{i=1}^{n}(Y_i-\bar{Y})^2 
+  &= \sum_{j=1}^p\frac{\hat{a}_j^2}{\operatorname{V}(\hat{a}_j)} \\
+  &= \sum_{j=1}^p\left( \frac{\hat{a}_j}{\sqrt{\operatorname{V}(\hat{a}_j)}} \right)^2
+\end{align*}
+$u = \frac{\hat{a}_j -a_j}{\sqrt{\operatorname{V}(a_j)}}\sim \operatorname{N}(0, 1)$において, $a_j=0, j=1, \cdots, p$と仮定すると, 
+\begin{align*}
+  u= \frac{\hat{a}_j}{\sqrt{\operatorname{V}(a_j)}} \sim \operatorname{N}(0, 1)
+\end{align*}
+なので, 
+\begin{align*}
+  \sum_{j=1}^p\left( \frac{\hat{a}_j}{\sqrt{\operatorname{V}(\hat{a}_j)}} \right)^2
+\end{align*}
+は自由度$p$の$\chi^2$分布に従う. すなわち,
+\begin{align*}
+  \sum_{i=1}^n\frac{(Y_i - \bar{Y})^2}{\sigma^2}
+\end{align*}
+は自由度$p$の$\chi^2$分布に従う.
+
+\end{document}
